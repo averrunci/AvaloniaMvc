@@ -1,0 +1,15 @@
+{
+  "assemblies": [
+    "SimpleLoginDemo.Presentation.Spec.dll"
+  ],
+  "reporters": [
+    {
+      "reporter": {
+        "type": "Carna.ConsoleRunner.Reporters.ConsoleFixtureReporter,Carna.ConsoleRunner",
+        "options": {
+          "stepVisible": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+﻿<!--
+Copyright (C) 2020 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<DataTemplate xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:m="clr-namespace:Charites.Windows.Samples.SimpleLoginDemo.Presentation"
+              xmlns:p="clr-namespace:Charites.Windows.Samples.SimpleLoginDemo.Presentation.Properties"
+              DataType="{x:Type m:SimpleLoginDemoContent}">
+    <DockPanel>
+        <DockPanel.Styles>
+            <StyleInclude Source="/Resources/Styles/SimpleLoginDemoContentStyle.xaml"/>
+        </DockPanel.Styles>
+
+        <Grid DockPanel.Dock="Top"
+              Classes="header">
+            <TextBlock Classes="title" Text="{x:Static p:Resources.Title}"/>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom"
+              Classes="footer">
+            <TextBlock Classes="copyright" Text="{x:Static p:Resources.Copyright}"/>
+        </Grid>
+
+        <ContentControl Content="{Binding Content.Value}"/>
+    </DockPanel>
+</DataTemplate>

@@ -1,0 +1,33 @@
+﻿<!--
+Copyright (C) 2020 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector="TextBlock.message">
+        <Setter Property="Margin" Value="8,4,0,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="Red"/>
+    </Style>
+
+    <Style Selector="Border.container">
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Background" Value="#343434"/>
+    </Style>
+
+    <Style Selector="StackPanel.input">
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style Selector="Button.login">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+</Styles>

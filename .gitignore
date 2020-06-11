@@ -1,0 +1,10 @@
+.vs/
+Binary/
+bin/
+obj/
+packages/
+.lock.json
+*.csproj.user
+*.nuget.props
+*.nuget.targets
+*.nupkg

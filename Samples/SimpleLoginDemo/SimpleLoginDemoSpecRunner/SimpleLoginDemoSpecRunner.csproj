@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo</RootNamespace>
+    <Version>0.9.0</Version>
+    <Authors>averrunci</Authors>
+    <Copyright>Copyright (C) 2020 Fievus</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>0.9.0</AssemblyVersion>
+    <FileVersion>0.9.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleLoginDemo.Presentation.Spec\SimpleLoginDemo.Presentation.Spec.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Carna.ConsoleRunner" Version="1.7.1" />
+  </ItemGroup>
+
+</Project>

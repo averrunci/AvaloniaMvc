@@ -1,0 +1,29 @@
+﻿<!--
+Copyright (C) 2020 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector="Grid.header">
+        <Setter Property="Height" Value="84"/>
+        <Setter Property="Background" Value="#121212"/>
+    </Style>
+
+    <Style Selector="TextBlock.title">
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Grid.footer">
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Background" Value="#121212"/>
+    </Style>
+
+    <Style Selector="TextBlock.copyright">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+</Styles>

@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Charites.Windows</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.9.0</Version>
+    <Authors>averrunci</Authors>
+    <Description>The class libarary for Avalonia with Model View Controller.</Description>
+    <Copyright>Copyright (C) 2020 Fievus</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/averrunci/AvaloniaMvc</PackageProjectUrl>
+    <PackageTags>avalonia mvc charites</PackageTags>
+    <AssemblyVersion>0.9.0</AssemblyVersion>
+    <FileVersion>0.9.0</FileVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\Binary\Debug\</OutputPath>
+    <DocumentationFile>..\..\Binary\Debug\netstandard2.0\AvaloniaMvc.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\Binary\Release\</OutputPath>
+    <DocumentationFile>..\..\Binary\Release\netstandard2.0\AvaloniaMvc.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.10" />
+    <PackageReference Include="Charites" Version="1.3.0" />
+    <PackageReference Include="Charites.Bindings" Version="1.2.0" />
+  </ItemGroup>
+
+</Project>

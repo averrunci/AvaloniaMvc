@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Avalonia Mvc App (.NET Core)</Name>
+    <Description>Avalonia client application with the Model-View-Controller architecture</Description>
+    <Icon Package="{b3bae735-386c-4030-8329-ef48eeda4036}" ID="4602" />
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>AvaloniaMvcApplication</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <LanguageTag>CSharp</LanguageTag>
+    <PlatformTag>Windows</PlatformTag>
+    <ProjectTypeTag>Desktop</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="AvaloniaMvcApp.csproj" ReplaceParameters="true">
+      <Folder Name="Assets" TargetFolderName="Assets" />
+      <Folder Name="Resources" TargetFolderName="Resources">
+        <Folder Name="Styles" TargetFolderName="Styles">
+          <ProjectItem ReplaceParameters="true" TargetFileName="WindowStyle.xaml">WindowStyle.xaml</ProjectItem>
+        </Folder>
+        <Folder Name="Templates" TargetFolderName="Templates">
+          <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$HostTemplate.xaml">AvaloniaMvcAppHostTemplate.xaml</ProjectItem>
+        </Folder>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Styles.xaml">Styles.xaml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Templates.xaml">Templates.xaml</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.cs">AvaloniaMvcApp.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$Application.cs">AvaloniaMvcAppApplication.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$Bootstrapper.cs">AvaloniaMvcAppBootstrapper.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$ControllerFactory.cs">AvaloniaMvcAppControllerFactory.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$Host.cs">AvaloniaMvcAppHost.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$HostController.cs">AvaloniaMvcAppHostController.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="I$projectname$Bootstrapper.cs">IAvaloniaMvcAppBootstrapper.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="ServiceExtensions.cs">ServiceExtensions.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
