@@ -3,7 +3,7 @@ Binary/
 bin/
 obj/
 packages/
-.lock.json
+*.lock.json
 *.csproj.user
 *.nuget.props
 *.nuget.targets
