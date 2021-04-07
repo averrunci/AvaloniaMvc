@@ -1,7 +1,6 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Logging.Serilog;
 using Charites.Windows.Mvc;
 using Microsoft.Extensions.Hosting;
 
@@ -22,7 +21,7 @@ namespace $safeprojectname$
         {
             Environment.ExitCode = AppBuilder.Configure<$safeprojectname$Application > ()
                 .UsePlatformDetect()
-                .LogToDebug()
+                .LogToTrace()
                 .AfterSetup(builder => Configure(builder.Instance.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
                 .StartWithClassicDesktopLifetime(Environment.GetCommandLineArgs());
         }
