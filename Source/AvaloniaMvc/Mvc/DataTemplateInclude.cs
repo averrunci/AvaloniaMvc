@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -60,8 +60,7 @@ namespace Charites.Windows.Mvc
         /// <returns>The data templates loaded from the source URL.</returns>
         protected virtual AvaloniaList<IDataTemplate> LoadDataTemplates()
         {
-            var loader = new AvaloniaXamlLoader();
-            var loadedResource = loader.Load(Source, baseUri);
+            var loadedResource = AvaloniaXamlLoader.Load(Source, baseUri);
 
             var dataTemplates = new AvaloniaList<IDataTemplate>();
             switch (loadedResource)
@@ -74,11 +73,6 @@ namespace Charites.Windows.Mvc
 
             return dataTemplates;
         }
-
-        /// <summary>
-        /// Gets a value indicating whether the data template supports recycling of the generated control.
-        /// </summary>
-        protected virtual bool SupportsRecycling => false;
 
         /// <summary>
         /// Creates the control.
@@ -94,7 +88,6 @@ namespace Charites.Windows.Mvc
         /// <returns><c>true</c> if the data template can build a control for the data; otherwise <c>false</c>.</returns>
         protected virtual bool Match(object data) => LoadedDataTemplates.Any(dataTemplate => dataTemplate.Match(data));
 
-        bool IDataTemplate.SupportsRecycling => SupportsRecycling;
         IControl ITemplate<object, IControl>.Build(object param) => Build(param);
         bool IDataTemplate.Match(object data) => Match(data);
     }

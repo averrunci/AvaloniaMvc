@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -12,8 +12,12 @@ namespace Charites.Windows.Mvc
     {
         public event EventHandler Changed;
 
-        public void RaiseAttachedToLogicalTree() => ((ILogical)this).NotifyAttachedToLogicalTree(new LogicalTreeAttachmentEventArgs(this));
-        public void RaiseDetachedFromLogicalTree() => ((ILogical)this).NotifyDetachedFromLogicalTree(new LogicalTreeAttachmentEventArgs(this));
+        public void AttachToLogicalTree() => ((ISetLogicalParent)this).SetParent(new TestLogicalRoot());
+        public void DetachFromLogicalTree() => ((ISetLogicalParent)this).SetParent(null);
         public void RaiseChanged() => Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    internal class TestLogicalRoot : Control, ILogicalRoot
+    {
     }
 }

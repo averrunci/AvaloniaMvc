@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -38,10 +38,10 @@ namespace Charites.Windows.Mvc
             When("an extension is added to the AvaloniaController", () => AvaloniaController.AddExtension(Extension));
             When("the AvaloniaController is enabled for the element", () => AvaloniaController.SetIsEnabled(Element, true));
 
-            When("the AttachedToLogicalTree event is raised", () => Element.RaiseAttachedToLogicalTree());
+            When("the element is attached to the logical tree", () => Element.AttachToLogicalTree());
             Then("the extension should be attached", () => Extension.Attached);
 
-            When("the DetachedFromLogicalTree event is raised", () => Element.RaiseDetachedFromLogicalTree());
+            When("the element is detached from the logical tree", () => Element.DetachFromLogicalTree());
             Then("the extension should be detached", () => Extension.Detached);
         }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -11,7 +11,6 @@ using Avalonia;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
-using Avalonia.Styling;
 
 namespace Charites.Windows.Mvc
 {
@@ -79,11 +78,11 @@ namespace Charites.Windows.Mvc
 
             eventHandlers.GetBy(element.Name)
                 .From(element)
-                .With(new AvaloniaPropertyChangedEventArgs(element, StyledElement.DataContextProperty, null, element.DataContext, BindingPriority.LocalValue))
+                .With(new AvaloniaPropertyChangedEventArgs<object>(element, StyledElement.DataContextProperty, null, element.DataContext, BindingPriority.LocalValue))
                 .Raise(nameof(StyledElement.DataContextChanged));
             eventHandlers.GetBy(element.Name)
                 .From(element)
-                .With(new LogicalTreeAttachmentEventArgs(element.FindStyleRoot() ?? (IStyleHost)element))
+                .With(new LogicalTreeAttachmentEventArgs(element.FindLogicalRoot(), element, element.Parent))
                 .Raise(nameof(StyledElement.AttachedToLogicalTree));
         }
 

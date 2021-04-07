@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -41,7 +41,7 @@ namespace Charites.Windows.Mvc
             When("the controller is added", () => AvaloniaController.GetControllers(Element).Add(Controller));
             When("the controller is attached to the element", () => AvaloniaController.GetControllers(Element).AttachTo(Element));
 
-            When("the AttachedToLogicalTree event is raised", () => Element.RaiseAttachedToLogicalTree());
+            When("the element is attached to the logical tree", () => Element.AttachToLogicalTree());
 
             When("the Changed event of the element is raised", () => Element.RaiseChanged());
             Then("the unhandled exception should be handled", () => UnhandledException != null);
@@ -55,7 +55,7 @@ namespace Charites.Windows.Mvc
             When("the controller is added", () => AvaloniaController.GetControllers(Element).Add(Controller));
             When("the controller is attached to the element", () => AvaloniaController.GetControllers(Element).AttachTo(Element));
 
-            When("the AttachedToLogicalTree event is raised", () => Element.RaiseAttachedToLogicalTree());
+            When("the element is attached to the logical tree", () => Element.AttachToLogicalTree());
 
             When("the Changed event of the element is raised", () => Element.RaiseChanged());
             Then<TargetInvocationException>("the exception should be thrown");

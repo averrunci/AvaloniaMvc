@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -104,18 +104,18 @@ namespace Charites.Windows.Mvc
         public static readonly AvaloniaProperty<string> KeyProperty = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, string>("Key");
 
         /// <summary>
-        /// Sets the value of the <see cref="KeyProperty"/> XAML attached property on the specified <see cref="AvaloniaObject"/>.
+        /// Sets the value of the <see cref="KeyProperty"/> XAML attached property on the specified <see cref="IAvaloniaObject"/>.
         /// </summary>
         /// <param name="element">The element on which to set the <see cref="KeyProperty"/> XAML attached property.</param>
         /// <param name="value">The property value to set.</param>
-        public static void SetKey(AvaloniaObject element, string value) => element.SetValue(KeyProperty, value);
+        public static void SetKey(IAvaloniaObject element, string value) => element.SetValue(KeyProperty, value);
 
         /// <summary>
-        /// Gets the value of the <see cref="KeyProperty"/> XAML attached property from the specified <see cref="AvaloniaObject"/>.
+        /// Gets the value of the <see cref="KeyProperty"/> XAML attached property from the specified <see cref="IAvaloniaObject"/>.
         /// </summary>
         /// <param name="element">The element from which to read the property value.</param>
         /// <returns>The value of the <see cref="KeyProperty"/> XAML attached property on the target dependency object.</returns>
-        public static string GetKey(AvaloniaObject element) => element.GetValue(KeyProperty);
+        public static string GetKey(IAvaloniaObject element) => element.GetValue(KeyProperty);
 
         private static void OnKeyChanged(AvaloniaPropertyChangedEventArgs e) => SetIsEnabled(e.Sender, true);
 
@@ -125,18 +125,18 @@ namespace Charites.Windows.Mvc
         public static readonly AvaloniaProperty<bool> IsEnabledProperty = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, bool>("IsEnabled");
 
         /// <summary>
-        /// Sets the value of the <see cref="IsEnabledProperty"/> XAML attached property on the specified <see cref="AvaloniaObject"/>.
+        /// Sets the value of the <see cref="IsEnabledProperty"/> XAML attached property on the specified <see cref="IAvaloniaObject"/>.
         /// </summary>
         /// <param name="element">The element on which to set the <see cref="IsEnabledProperty"/> XAML attached property.</param>
         /// <param name="value">The property value to set.</param>
-        public static void SetIsEnabled(AvaloniaObject element, bool value) => element.SetValue(IsEnabledProperty, value);
+        public static void SetIsEnabled(IAvaloniaObject element, bool value) => element.SetValue(IsEnabledProperty, value);
 
         /// <summary>
-        /// Gets the value of the <see cref="IsEnabledProperty"/> XAML attached property from the specified <see cref="AvaloniaObject"/>.
+        /// Gets the value of the <see cref="IsEnabledProperty"/> XAML attached property from the specified <see cref="IAvaloniaObject"/>.
         /// </summary>
         /// <param name="element">The element from which to read the property value.</param>
         /// <returns>The value of the <see cref="IsEnabledProperty"/> XAML attached property on the target dependency object.</returns>
-        public static bool GetIsEnabled(AvaloniaObject element) => element.GetValue(IsEnabledProperty);
+        public static bool GetIsEnabled(IAvaloniaObject element) => element.GetValue(IsEnabledProperty);
 
         private static void OnIsEnabledChanged(AvaloniaPropertyChangedEventArgs e)
         {
@@ -183,7 +183,7 @@ namespace Charites.Windows.Mvc
 
         private static void DetachControllers(StyledElement element)
         {
-            var controllers = element.GetValue(ControllersProperty);
+            var controllers = element.GetValue<AvaloniaControllerCollection>(ControllersProperty);
             controllers?.Detach();
             element.SetValue(ControllersProperty, null);
         }
@@ -218,7 +218,7 @@ namespace Charites.Windows.Mvc
         {
             if (element == null) throw new ArgumentNullException(nameof(element));
 
-            var controllers = element.GetValue(ControllersProperty);
+            var controllers = element.GetValue<AvaloniaControllerCollection>(ControllersProperty);
             controllers.IfAbsent(() =>
             {
                 controllers = new AvaloniaControllerCollection(DataContextFinder, DataContextInjector, ElementInjector, Extensions);

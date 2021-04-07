@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -46,11 +46,11 @@ namespace Charites.Windows
             return rootElement.GetLogicalDescendants().FirstOrDefault(child => (child as StyledElement)?.Name == elementName) as TElement;
         }
 
-        public static IStyleRoot FindStyleRoot(this IStyleHost styleHost)
+        public static ILogicalRoot FindLogicalRoot(this IStyleHost styleHost)
         {
             while (styleHost != null)
             {
-                if (styleHost is IStyleRoot styleRoot) return styleRoot;
+                if (styleHost is ILogicalRoot logicalRoot) return logicalRoot;
 
                 styleHost = styleHost.StylingParent;
             }

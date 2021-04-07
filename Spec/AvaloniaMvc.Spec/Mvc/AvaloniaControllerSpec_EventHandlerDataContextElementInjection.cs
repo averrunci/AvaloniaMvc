@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -37,7 +37,7 @@ namespace Charites.Windows.Mvc
             Then("the element of the controller should be null", () => controller.Element == null);
             Then("the child element of the controller should be null", () => controller.ChildElement == null);
 
-            When("the AttachedToLogicalTree event is raised", () => Element.RaiseAttachedToLogicalTree());
+            When("the element is attached to the logical tree", () => Element.AttachToLogicalTree());
 
             Then("the data context of the controller should be set", () => controller.DataContext == DataContext);
             Then("the element of the controller should be set", () => controller.Element == Element);

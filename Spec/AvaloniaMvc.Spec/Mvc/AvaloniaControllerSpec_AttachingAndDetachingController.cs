@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -136,10 +136,10 @@ namespace Charites.Windows.Mvc
             });
             Then("the data context of the controller should be set", () => Controller.DataContext == Element.DataContext);
 
-            When("the AttachedToLogicalTree event is raised", () =>
+            When("the element is attache to the logical tree", () =>
             {
                 Controller.AttachedToLogicalTreeAssertionHandler = () => AttachedToLogicalTreeEventHandled = true;
-                Element.RaiseAttachedToLogicalTree();
+                Element.AttachToLogicalTree();
             });
             Then("the element of the controller should be set", () => Controller.Element == Element);
             Then("the AttachedToLogicalTree event should be handled", () => AttachedToLogicalTreeEventHandled);
@@ -151,14 +151,14 @@ namespace Charites.Windows.Mvc
             });
             Then("the Changed event should be handled", () => ChangedEventHandled);
 
-            When("the DetachedFromLogicalTree event is raised", () => Element.RaiseDetachedFromLogicalTree());
+            When("the element is detached from the logical tree", () => Element.DetachFromLogicalTree());
             Then("the data context of the controller should be null", () => Controller.DataContext == null);
             Then("the element of the controller should be null", () => Controller.Element == null);
 
-            When("the AttachedToLogicalTree event is raised", () =>
+            When("the element is attached to the logical tree", () =>
             {
                 AttachedToLogicalTreeEventHandled = false;
-                Element.RaiseAttachedToLogicalTree();
+                Element.AttachToLogicalTree();
             });
             Then("the AttachedToLogicalTree event should not be handled", () => !AttachedToLogicalTreeEventHandled);
 
@@ -182,10 +182,10 @@ namespace Charites.Windows.Mvc
             });
             Then("the data context of the controller should be set", () => Controller.DataContext == Element.DataContext);
 
-            When("the AttachedToLogicalTree event is raised", () =>
+            When("the element is attached to the logical tree", () =>
             {
                 Controller.AttachedToLogicalTreeAssertionHandler = () => AttachedToLogicalTreeEventHandled = true;
-                Element.RaiseAttachedToLogicalTree();
+                Element.AttachToLogicalTree();
             });
             Then("the element of the controller should be set", () => Controller.Element == Element);
             Then("the AttachedToLogicalTree event should be handled", () => AttachedToLogicalTreeEventHandled);
@@ -197,15 +197,16 @@ namespace Charites.Windows.Mvc
             });
             Then("the Changed event should be handled", () => ChangedEventHandled);
 
+            When("the element is detached from the logical tree", () => Element.DetachFromLogicalTree());
             When("the AvaloniaController is disabled for the element", () => AvaloniaController.SetIsEnabled(Element, false));
             Then("the controller should be detached", () => !AvaloniaController.GetControllers(Element).Any());
             Then("the data context of the controller should be null", () => Controller.DataContext == null);
             Then("the element of the controller should be null", () => Controller.Element == null);
 
-            When("the AttachedToLogicalTree event is raised", () =>
+            When("the element is attached to the logical tree", () =>
             {
                 AttachedToLogicalTreeEventHandled = false;
-                Element.RaiseAttachedToLogicalTree();
+                Element.AttachToLogicalTree();
             });
             Then("the AttachedToLogicalTree event should not be handled", () => !AttachedToLogicalTreeEventHandled);
             Then("the controller should not be attached", () => !AvaloniaController.GetControllers(Element).Any());
@@ -237,14 +238,14 @@ namespace Charites.Windows.Mvc
             });
             Then("the data context of the controller should be set", () => Controllers.All(controller => controller.DataContext == Element.DataContext));
 
-            When("the AttachedToLogicalTree event is raised", () =>
+            When("the element is attached to the logical tree", () =>
             {
                 for (var index = 0; index < Controllers.Length; index++)
                 {
                     var eventHandledIndex = index;
                     Controllers[index].AttachedToLogicalTreeAssertionHandler = () => AttachedToLogicalTreeEventsHandled[eventHandledIndex] = true;
                 }
-                Element.RaiseAttachedToLogicalTree();
+                Element.AttachToLogicalTree();
             });
             Then("the element of the controller should be set", () => Controllers.All(controller => controller.Element == Element));
             Then("the AttachedToLogicalTree event should be handled", () => AttachedToLogicalTreeEventsHandled.All(handled => handled));
@@ -260,17 +261,17 @@ namespace Charites.Windows.Mvc
             });
             Then("the Changed event should be handled", () => ChangedEventsHandled.All(handled => handled));
 
-            When("the DetachedFromLogicalTree event is raised", () => Element.RaiseDetachedFromLogicalTree());
+            When("the element is detached from the logical tree", () => Element.DetachFromLogicalTree());
             Then("the data context of the controller should be null", () => Controllers.All(controller => controller.DataContext == null));
             Then("the element of the controller should be null", () => Controllers.All(controller => controller.Element == null));
 
-            When("the AttachedToLogicalTree event is raised", () =>
+            When("the element is attached to the logical tree", () =>
             {
                 for (var index = 0; index < AttachedToLogicalTreeEventsHandled.Length; index++)
                 {
                     AttachedToLogicalTreeEventsHandled[index] = false;
                 }
-                Element.RaiseAttachedToLogicalTree();
+                Element.AttachToLogicalTree();
             });
             Then("the AttachedToLogicalTree event should not be handled", () => AttachedToLogicalTreeEventsHandled.All(handled => !handled));
 
