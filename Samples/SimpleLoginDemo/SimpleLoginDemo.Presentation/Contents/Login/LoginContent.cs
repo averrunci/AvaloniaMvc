@@ -1,19 +1,14 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
-using System;
 using System.ComponentModel.DataAnnotations;
 using Charites.Windows.Mvc.Bindings;
-using Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.User;
 
 namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
 {
-    public class LoginContent : ILoginDemoContent
+    public class LoginContent
     {
-        public event EventHandler<ContentRequestedEventArgs> ContentRequested;
-        public event EventHandler LoggedOut;
-
         [Display(Name = "User ID")]
         [Required]
         public ObservableProperty<string> UserId { get; } = string.Empty.ToObservableProperty();
@@ -46,15 +41,5 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
                 UserId, Password
             );
         }
-
-        public void Login()
-        {
-            if (!IsValid) return;
-
-            OnNextContentRequested(new ContentRequestedEventArgs(new UserContent(UserId.Value)));
-        }
-
-        protected virtual void OnNextContentRequested(ContentRequestedEventArgs e) => ContentRequested?.Invoke(this, e);
-        protected virtual void OnLoggedOut(EventArgs e) => LoggedOut?.Invoke(this, e);
     }
 }
