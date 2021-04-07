@@ -61,7 +61,7 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright (C) 2020 Fievus.
+        ///   Looks up a localized string similar to Copyright (C) 2020-2021 Fievus.
         /// </summary>
         public static string Copyright {
             get {
