@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020 Fievus
+﻿// Copyright (C) 2020-2021 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -387,6 +387,87 @@ namespace Charites.Windows.Mvc
                 public Button ChildElement { get; private set; }
 
                 public void ChildElement_Click(object sender, RoutedEventArgs e) => handler(sender, e);
+                private readonly EventHandler<RoutedEventArgs> handler;
+
+                public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
+                {
+                    handler = assertionHandler;
+                }
+            }
+        }
+
+        public class AttributedToAsyncMethodUsingNamingConvention
+        {
+            public class NoArgumentHandlerController : ITestAvaloniaController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(StyledElement element) => Element = element;
+                public StyledElement Element { get; private set; }
+
+                [Element]
+                public void SetChildElement(Button childElement) => ChildElement = childElement;
+                public Button ChildElement { get; private set; }
+
+                public Task ChildElement_ClickAsync()
+                {
+                    handler();
+                    return Task.CompletedTask;
+                }
+                private readonly Action handler;
+
+                public NoArgumentHandlerController(Action assertionHandler)
+                {
+                    handler = assertionHandler;
+                }
+            }
+
+            public class OneArgumentHandlerController : ITestAvaloniaController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(StyledElement element) => Element = element;
+                public StyledElement Element { get; private set; }
+
+                [Element]
+                public void SetChildElement(Button childElement) => ChildElement = childElement;
+                public Button ChildElement { get; private set; }
+
+                public Task ChildElement_ClickAsync(RoutedEventArgs e)
+                {
+                    handler(e);
+                    return Task.CompletedTask;
+                }
+                private readonly Action<RoutedEventArgs> handler;
+
+                public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
+                {
+                    handler = assertionHandler;
+                }
+            }
+
+            public class EventHandlerController : ITestAvaloniaController
+            {
+                public void SetDataContext(object dataContext) => DataContext = dataContext;
+                public object DataContext { get; private set; }
+
+                [Element(Name = "element")]
+                public void SetElement(StyledElement element) => Element = element;
+                public StyledElement Element { get; private set; }
+
+                [Element]
+                public void SetChildElement(Button childElement) => ChildElement = childElement;
+                public Button ChildElement { get; private set; }
+
+                public Task ChildElement_ClickAsync(object sender, RoutedEventArgs e)
+                {
+                    handler(sender, e);
+                    return Task.CompletedTask;
+                }
                 private readonly EventHandler<RoutedEventArgs> handler;
 
                 public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)

@@ -86,6 +86,9 @@ namespace Charites.Windows.Mvc
                 yield return new { Description = "When the contents are attributed to methods and the event handler has no argument using a naming convention", Controller = new TestAvaloniaControllers.AttributedToMethodUsingNamingConvention.NoArgumentHandlerController(NoArgumentAssertionHandler) };
                 yield return new { Description = "When the contents are attributed to methods and the event handler has one argument using a naming convention", Controller = new TestAvaloniaControllers.AttributedToMethodUsingNamingConvention.OneArgumentHandlerController(OneArgumentAssertionHandler) };
                 yield return new { Description = "When the contents are attributed to methods and the event handler has event arguments using a naming convention", Controller = new TestAvaloniaControllers.AttributedToMethodUsingNamingConvention.EventHandlerController(EventHandlerAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to async methods and the event handler has no argument using a naming convention", Controller = new TestAvaloniaControllers.AttributedToAsyncMethodUsingNamingConvention.NoArgumentHandlerController(NoArgumentAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to async methods and the event handler has one argument using a naming convention", Controller = new TestAvaloniaControllers.AttributedToAsyncMethodUsingNamingConvention.OneArgumentHandlerController(OneArgumentAssertionHandler) };
+                yield return new { Description = "When the contents are attributed to async methods and the event handler has event arguments using a naming convention", Controller = new TestAvaloniaControllers.AttributedToAsyncMethodUsingNamingConvention.EventHandlerController(EventHandlerAssertionHandler) };
             }
         }
     }
