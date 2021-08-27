@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "carna-runner": {
-      "version": "1.8.0",
+      "version": "1.8.2",
       "commands": [
         "carna-runner"
       ]
