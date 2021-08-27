@@ -36,13 +36,13 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
                 LoginContent.UserId.Value = "user";
                 LoginContent.Password.Value = "password";
 
-                UserAuthentication.Authenticate(LoginContent.UserId.Value, LoginContent.Password.Value)
+                UserAuthentication.AuthenticateAsync(LoginContent.UserId.Value, LoginContent.Password.Value)
                     .Returns(UserAuthenticationResult.Succeeded());
             });
-            When("to click the login button", () =>
-                AvaloniaController.EventHandlersOf(Controller)
+            When("to click the login button", async () =>
+                await AvaloniaController.EventHandlersOf(Controller)
                     .GetBy("LoginButton")
-                    .Raise(nameof(Button.Click))
+                    .RaiseAsync(nameof(Button.Click))
             );
             Then("the content should be navigated to the UserContent", () =>
             {
@@ -65,10 +65,10 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
                 Controller = new LoginContentController(Navigator, null);
                 AvaloniaController.SetDataContext(LoginContent, Controller);
             });
-            When("to click the login button", () =>
-                AvaloniaController.EventHandlersOf(Controller)
+            When("to click the login button", async () =>
+                await AvaloniaController.EventHandlersOf(Controller)
                     .GetBy("LoginButton")
-                    .Raise(nameof(Button.Click))
+                    .RaiseAsync(nameof(Button.Click))
             );
             Then("the content should not be navigated to any contents", () =>
             {
@@ -85,10 +85,10 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
                 LoginContent.UserId.Value = null;
                 LoginContent.Password.Value = null;
             });
-            When("to click the login button", () =>
-                AvaloniaController.EventHandlersOf(Controller)
+            When("to click the login button", async () =>
+                await AvaloniaController.EventHandlersOf(Controller)
                     .GetBy("LoginButton")
-                    .Raise(nameof(Button.Click))
+                    .RaiseAsync(nameof(Button.Click))
             );
             Then("the content should not be navigated to any contents", () =>
             {
@@ -105,13 +105,13 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
                 LoginContent.UserId.Value = "user";
                 LoginContent.Password.Value = "password";
 
-                UserAuthentication.Authenticate(LoginContent.UserId.Value, LoginContent.Password.Value)
+                UserAuthentication.AuthenticateAsync(LoginContent.UserId.Value, LoginContent.Password.Value)
                     .Returns(UserAuthenticationResult.Failed());
             });
-            When("to click the login button", () =>
-                AvaloniaController.EventHandlersOf(Controller)
+            When("to click the login button", async () =>
+                await AvaloniaController.EventHandlersOf(Controller)
                     .GetBy("LoginButton")
-                    .Raise(nameof(Button.Click))
+                    .RaiseAsync(nameof(Button.Click))
             );
             Then("the content should not be navigated to any contents", () =>
             {

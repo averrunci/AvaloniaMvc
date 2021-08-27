@@ -4,13 +4,13 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo</RootNamespace>
-    <Version>0.10.0</Version>
+    <Version>0.10.1</Version>
     <Authors>averrunci</Authors>
     <Copyright>Copyright (C) 2020-2021 Fievus</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>0.10.0</AssemblyVersion>
-    <FileVersion>0.10.0</FileVersion>
+    <AssemblyVersion>0.10.1</AssemblyVersion>
+    <FileVersion>0.10.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Carna.ConsoleRunner" Version="1.8.0" />
+    <PackageReference Include="Carna.ConsoleRunner" Version="1.8.2" />
   </ItemGroup>
 
 </Project>

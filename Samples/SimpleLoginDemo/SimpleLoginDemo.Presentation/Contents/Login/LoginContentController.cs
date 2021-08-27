@@ -3,6 +3,7 @@
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
 using System;
+using System.Threading.Tasks;
 using Charites.Windows.Mvc;
 using Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.User;
 using Charites.Windows.Samples.SimpleLoginDemo.Presentation.Properties;
@@ -24,7 +25,7 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
         private void SetDataContext(LoginContent content) => this.content = content;
         private LoginContent content;
 
-        private void LoginButton_Click()
+        private async Task LoginButton_ClickAsync()
         {
             content.Message.Value = string.Empty;
 
@@ -36,7 +37,7 @@ namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login
 
             if (!content.IsValid) return;
 
-            var result = userAuthentication.Authenticate(content.UserId.Value, content.Password.Value);
+            var result = await userAuthentication.AuthenticateAsync(content.UserId.Value, content.Password.Value);
             if (result.Success)
             {
                 navigator.NavigateTo(new UserContent(content.UserId.Value));
