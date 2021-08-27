@@ -145,6 +145,25 @@ private void ActionButton_Click(object sender, RoutedEventArgs e)
 }
 ```
 
+If the method is an async method, its suffix can be "Async".
+
+``` csharp
+private async Task ActionButton_ClickAsync()
+{
+    // implements the action.
+}
+
+private async Task ActionButton_ClickAsync(RoutedEventArgs e)
+{
+    // implements the action.
+}
+
+private async Task ActionButton_ClickAsync(object sender, RoutedEventArgs e)
+{
+    // implements the action.
+}
+```
+
 ### FromDIAttribute
 
 This attribute is specified to the parameter. Its parameter value is injected using the dependency injection.
