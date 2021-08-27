@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Interactivity;
@@ -18,8 +17,6 @@ namespace Charites.Windows.Mvc
     {
         private const BindingFlags RoutedEventBindingFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy;
         private const char AttachedEventSeparator = '.';
-
-        private static readonly Regex EventHandlerNamingConventionRegex = new Regex("^[^_]+_[^_]+$", RegexOptions.Compiled);
 
         private static readonly AvaloniaProperty<IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>> EventHandlerBasesProperty
             = AvaloniaProperty.RegisterAttached<AvaloniaEventHandlerExtension, StyledElement, IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>>("EventHandlerBases");
@@ -47,28 +44,6 @@ namespace Charites.Windows.Mvc
                 eventHandlerAttribute.HandledEventsToo
             ));
         }
-
-        protected override void RetrieveEventHandlersFromMethodUsingNamingConvention(object controller, StyledElement element, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem> eventHandlers)
-            => controller.GetType()
-                .GetMethods(EventHandlerBindingFlags)
-                .Where(method => EventHandlerNamingConventionRegex.IsMatch(method.Name))
-                .Where(method => !method.Name.StartsWith("get_"))
-                .Where(method => !method.Name.StartsWith("set_"))
-                .Where(method => !method.GetCustomAttributes<EventHandlerAttribute>(true).Any())
-                .Select(method =>
-                {
-                    var separatorIndex = method.Name.IndexOf("_", StringComparison.Ordinal);
-                    return new
-                    {
-                        MethodInfo = method,
-                        EventHanndlerAttribute = new EventHandlerAttribute
-                        {
-                            ElementName = method.Name.Substring(0, separatorIndex),
-                            Event = method.Name.Substring(separatorIndex + 1)
-                        }
-                    };
-                })
-                .ForEach(x => AddEventHandler(element, x.EventHanndlerAttribute, handlerType => CreateEventHandler(x.MethodInfo, controller, handlerType), eventHandlers));
 
         protected override EventHandlerAction CreateEventHandlerAction(MethodInfo method, object target) => new AvaloniaEventHandlerAction(method, target);
 
