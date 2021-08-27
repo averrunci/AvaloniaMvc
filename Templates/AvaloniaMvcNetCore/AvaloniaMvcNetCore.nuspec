@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AvaloniaMvc.ProjectTemplates</id>
+    <version>0.10.1</version>
+    <title>Avalonia MVC Application</title>
+    <authors>averrunci</authors>
+    <owners>averrunci</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/averrunci/AvaloniaMvc</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Avalonia MVC application Project Template.</description>
+    <language>en-US</language>
+    <copyright>Copyright (C) 2021 Fievus</copyright>
+    <tags>avalonia mvc charites</tags>
+    <packageTypes>
+      <packageType name="Template"/>
+    </packageTypes>
+  </metadata>
+</package>

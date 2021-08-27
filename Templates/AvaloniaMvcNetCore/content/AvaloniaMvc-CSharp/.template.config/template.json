@@ -1,0 +1,18 @@
+{
+  "author": "averrunci",
+  "name": "Avalonia Mvc Application",
+  "description": "Avalonia client application with the Model-View-Controller architecture.",
+  "groupIdentity": "AvaloniaMvc",
+  "identity": "AvaloniaMvc.CSharp",
+  "shortName": "avaloniamvc",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "classifications": [
+    "Common",
+    "Avalonia"
+  ],
+  "sourceName": "AvaloniaMvcApp",
+  "preferNameDirectory": true
+}

@@ -1,0 +1,4 @@
+﻿<DataTemplates xmlns="https://github.com/avaloniaui"
+               xmlns:a="clr-namespace:Charites.Windows.Mvc;assembly=AvaloniaMvc">
+    <a:DataTemplateInclude Source="/Resources/Templates/AvaloniaMvcAppHostTemplate.axaml"/>
+</DataTemplates>
