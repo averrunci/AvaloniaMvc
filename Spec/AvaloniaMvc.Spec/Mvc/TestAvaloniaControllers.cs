@@ -1,479 +1,476 @@
-﻿// Copyright (C) 2020-2021 Fievus
+﻿// Copyright (C) 2020-2022 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
-using System;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace Charites.Windows.Mvc
+namespace Charites.Windows.Mvc;
+
+internal class TestAvaloniaControllers
 {
-    internal class TestAvaloniaControllers
+    public interface ITestAvaloniaController
     {
-        public interface ITestAvaloniaController
+        object? DataContext { get; }
+        StyledElement? Element { get; }
+        Button? ChildElement { get; }
+    }
+
+    public class TestAvaloniaControllerBase
+    {
+        [DataContext]
+        public object? DataContext { get; set; }
+
+        [Element]
+        public TestElement? Element { get; set; }
+
+        [EventHandler(ElementName = nameof(Element), Event = nameof(StyledElement.AttachedToLogicalTree))]
+        protected void Element_AttachedToLogicalTree() => AttachedToLogicalTreeAssertionHandler?.Invoke();
+
+        [EventHandler(ElementName = nameof(Element), Event = "Button.Click")]
+        protected void Element_ButtonClick() => ButtonClickAssertionHandler?.Invoke();
+
+        [EventHandler(ElementName = nameof(Element), Event = nameof(TestElement.Changed))]
+        protected void Element_Changed() => ChangedAssertionHandler?.Invoke();
+
+        [EventHandler(Event = nameof(StyledElement.DataContextChanged))]
+        protected void OnDataContextChanged() { }
+
+        public Action? AttachedToLogicalTreeAssertionHandler { get; set; }
+        public Action? ButtonClickAssertionHandler { get; set; }
+        public Action? ChangedAssertionHandler { get; set; }
+    }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+TestDataContext")]
+    public class TestAvaloniaController : TestAvaloniaControllerBase { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
+    public class MultiTestAvaloniaControllerA : TestAvaloniaControllerBase { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
+    public class MultiTestAvaloniaControllerB : TestAvaloniaControllerBase { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
+    public class MultiTestAvaloniaControllerC : TestAvaloniaControllerBase { }
+
+    public class TestController {[DataContext] public object? DataContext { get; set; } }
+
+    [View(Key = "AttachingTestDataContext")]
+    public class TestDataContextController : TestController { }
+
+    [View(Key = "BaseAttachingTestDataContext")]
+    public class BaseTestDataContextController : TestController { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+AttachingTestDataContextFullName")]
+    public class TestDataContextFullNameController : TestController { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+BaseAttachingTestDataContextFullName")]
+    public class BaseTestDataContextFullNameController : TestController { }
+
+    [View(Key = "GenericAttachingTestDataContext`1")]
+    public class GenericTestDataContextController : TestController { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+GenericAttachingTestDataContextFullName`1[System.String]")]
+    public class GenericTestDataContextFullNameController : TestController { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+GenericAttachingTestDataContextFullName`1")]
+    public class GenericTestDataContextFullNameWithoutParametersController : TestController { }
+
+    [View(Key = "IAttachingTestDataContext")]
+    public class InterfaceImplementedTestDataContextController : TestController { }
+
+    [View(Key = "Charites.Windows.Mvc.TestDataContexts+IAttachingTestDataContextFullName")]
+    public class InterfaceImplementedTestDataContextFullNameController : TestController { }
+
+    [View(Key = "TestElement")]
+    public class KeyTestDataContextController : TestController { }
+
+    public class TestAvaloniaControllerAsync
+    {
+        [DataContext]
+        public object? DataContext { get; set; }
+
+        [Element]
+        public StyledElement? Element { get; set; }
+
+        [EventHandler(ElementName = nameof(Element), Event = nameof(StyledElement.AttachedToLogicalTree))]
+        private async Task Element_AttachedToLogicalTreeAsync()
         {
-            object DataContext { get; }
-            StyledElement Element { get; }
-            Button ChildElement { get; }
+            await Task.Run(() => LoadedAssertionHandler?.Invoke());
         }
 
-        public class TestAvaloniaControllerBase
+        public Action? LoadedAssertionHandler { get; set; }
+    }
+
+    public class ExceptionTestAvaloniaController
+    {
+        [EventHandler(Event = "Changed")]
+        private void OnChanged()
+        {
+            throw new Exception();
+        }
+    }
+
+    public class AttributedToField
+    {
+        public class NoArgumentHandlerController : ITestAvaloniaController
         {
             [DataContext]
-            public object DataContext { get; set; }
+            private object? dataContext;
 
             [Element]
-            public TestElement Element { get; set; }
+            private StyledElement? element;
 
-            [EventHandler(ElementName = nameof(Element), Event = nameof(StyledElement.AttachedToLogicalTree))]
-            protected void Element_AttachedToLogicalTree() => AttachedToLogicalTreeAssertionHandler?.Invoke();
+            [Element(Name = "ChildElement")]
+            private Button? childElement;
 
-            [EventHandler(ElementName = nameof(Element), Event = "Button.Click")]
-            protected void Element_ButtonClick() => ButtonClickAssertionHandler?.Invoke();
+            [EventHandler(ElementName = "ChildElement", Event = nameof(Button.Click))]
+            private Action? handler;
 
-            [EventHandler(ElementName = nameof(Element), Event = nameof(TestElement.Changed))]
-            protected void Element_Changed() => ChangedAssertionHandler?.Invoke();
+            public NoArgumentHandlerController(Action assertionHandler)
+            {
+                handler = assertionHandler;
+            }
 
-            [EventHandler(Event = nameof(StyledElement.DataContextChanged))]
-            protected void OnDataContextChanged() { }
-
-            public Action AttachedToLogicalTreeAssertionHandler { get; set; }
-            public Action ButtonClickAssertionHandler { get; set; }
-            public Action ChangedAssertionHandler { get; set; }
+            public object? DataContext => dataContext;
+            public StyledElement? Element => element;
+            public Button? ChildElement => childElement;
         }
 
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+TestDataContext")]
-        public class TestAvaloniaController : TestAvaloniaControllerBase { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
-        public class MultiTestAvaloniaControllerA : TestAvaloniaControllerBase { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
-        public class MultiTestAvaloniaControllerB : TestAvaloniaControllerBase { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
-        public class MultiTestAvaloniaControllerC : TestAvaloniaControllerBase { }
-
-        public class TestController {[DataContext] public object DataContext { get; set; } }
-
-        [View(Key = "AttachingTestDataContext")]
-        public class TestDataContextController : TestController { }
-
-        [View(Key = "BaseAttachingTestDataContext")]
-        public class BaseTestDataContextController : TestController { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+AttachingTestDataContextFullName")]
-        public class TestDataContextFullNameController : TestController { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+BaseAttachingTestDataContextFullName")]
-        public class BaseTestDataContextFullNameController : TestController { }
-
-        [View(Key = "GenericAttachingTestDataContext`1")]
-        public class GenericTestDataContextController : TestController { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+GenericAttachingTestDataContextFullName`1[System.String]")]
-        public class GenericTestDataContextFullNameController : TestController { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+GenericAttachingTestDataContextFullName`1")]
-        public class GenericTestDataContextFullNameWithoutParametersController : TestController { }
-
-        [View(Key = "IAttachingTestDataContext")]
-        public class InterfaceImplementedTestDataContextController : TestController { }
-
-        [View(Key = "Charites.Windows.Mvc.TestDataContexts+IAttachingTestDataContextFullName")]
-        public class InterfaceImplementedTestDataContextFullNameController : TestController { }
-
-        [View(Key = "TestElement")]
-        public class KeyTestDataContextController : TestController { }
-
-        public class TestAvaloniaControllerAsync
+        public class OneArgumentHandlerController : ITestAvaloniaController
         {
             [DataContext]
-            public object DataContext { get; set; }
+            private object? dataContext;
 
             [Element]
-            public StyledElement Element { get; set; }
+            private StyledElement? element;
 
-            [EventHandler(ElementName = nameof(Element), Event = nameof(StyledElement.AttachedToLogicalTree))]
-            private async Task Element_AttachedToLogicalTree()
+            [Element(Name = "ChildElement")]
+            private Button? childElement;
+
+            [EventHandler(ElementName = "ChildElement", Event = nameof(Button.Click))]
+            private Action<RoutedEventArgs> handler;
+
+            public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
             {
-                await Task.Run(() => LoadedAssertionHandler?.Invoke());
+                handler = assertionHandler;
             }
 
-            public Action LoadedAssertionHandler { get; set; }
+            public object? DataContext => dataContext;
+            public StyledElement? Element => element;
+            public Button? ChildElement => childElement;
         }
 
-        public class ExceptionTestAvaloniaController
+        public class EventHandlerController : ITestAvaloniaController
         {
-            [EventHandler(Event = "Changed")]
-            private void OnChanged()
+            [DataContext]
+            private object? dataContext;
+
+            [Element]
+            private StyledElement? element;
+
+            [Element(Name = "ChildElement")]
+            private Button? childElement;
+
+            [EventHandler(ElementName = "ChildElement", Event = nameof(Button.Click))]
+            private EventHandler<RoutedEventArgs> handler;
+
+            public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
             {
-                throw new Exception();
+                handler = assertionHandler;
             }
+
+            public object? DataContext => dataContext;
+            public StyledElement? Element => element;
+            public Button? ChildElement => childElement;
         }
+    }
 
-        public class AttributedToField
+    public class AttributedToProperty
+    {
+        public class NoArgumentHandlerController : ITestAvaloniaController
         {
-            public class NoArgumentHandlerController : ITestAvaloniaController
+            [DataContext]
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public Button? ChildElement { get; private set; }
+
+            [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
+            private Action Handler { get; set; }
+
+            public NoArgumentHandlerController(Action assertionHandler)
             {
-                [DataContext]
-                private object dataContext;
-
-                [Element]
-                private StyledElement element;
-
-                [Element(Name = "ChildElement")]
-                private Button childElement;
-
-                [EventHandler(ElementName = "ChildElement", Event = nameof(Button.Click))]
-                private Action handler;
-
-                public NoArgumentHandlerController(Action assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
-
-                public object DataContext => dataContext;
-                public StyledElement Element => element;
-                public Button ChildElement => childElement;
-            }
-
-            public class OneArgumentHandlerController : ITestAvaloniaController
-            {
-                [DataContext]
-                private object dataContext;
-
-                [Element]
-                private StyledElement element;
-
-                [Element(Name = "ChildElement")]
-                private Button childElement;
-
-                [EventHandler(ElementName = "ChildElement", Event = nameof(Button.Click))]
-                private Action<RoutedEventArgs> handler;
-
-                public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
-
-                public object DataContext => dataContext;
-                public StyledElement Element => element;
-                public Button ChildElement => childElement;
-            }
-
-            public class EventHandlerController : ITestAvaloniaController
-            {
-                [DataContext]
-                private object dataContext;
-
-                [Element]
-                private StyledElement element;
-
-                [Element(Name = "ChildElement")]
-                private Button childElement;
-
-                [EventHandler(ElementName = "ChildElement", Event = nameof(Button.Click))]
-                private EventHandler<RoutedEventArgs> handler;
-
-                public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
-
-                public object DataContext => dataContext;
-                public StyledElement Element => element;
-                public Button ChildElement => childElement;
+                Handler = assertionHandler;
             }
         }
 
-        public class AttributedToProperty
+        public class OneArgumentHandlerController : ITestAvaloniaController
         {
-            public class NoArgumentHandlerController : ITestAvaloniaController
+            [DataContext]
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public Button? ChildElement { get; private set; }
+
+            [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
+            private Action<RoutedEventArgs> Handler { get; set; }
+
+            public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
             {
-                [DataContext]
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public Button ChildElement { get; private set; }
-
-                [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
-                private Action Handler { get; set; }
-
-                public NoArgumentHandlerController(Action assertionHandler)
-                {
-                    Handler = assertionHandler;
-                }
-            }
-
-            public class OneArgumentHandlerController : ITestAvaloniaController
-            {
-                [DataContext]
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public Button ChildElement { get; private set; }
-
-                [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
-                private Action<RoutedEventArgs> Handler { get; set; }
-
-                public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
-                {
-                    Handler = assertionHandler;
-                }
-            }
-
-            public class EventHandlerController : ITestAvaloniaController
-            {
-                [DataContext]
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public Button ChildElement { get; private set; }
-
-                [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
-                private EventHandler<RoutedEventArgs> Handler { get; set; }
-
-                public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
-                {
-                    Handler = assertionHandler;
-                }
+                Handler = assertionHandler;
             }
         }
 
-        public class AttributedToMethod
+        public class EventHandlerController : ITestAvaloniaController
         {
-            public class NoArgumentHandlerController : ITestAvaloniaController
+            [DataContext]
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public Button? ChildElement { get; private set; }
+
+            [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
+            private EventHandler<RoutedEventArgs> Handler { get; set; }
+
+            public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
             {
-                [DataContext]
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
-                public void ChildElement_Click() => handler();
-                private readonly Action handler;
-
-                public NoArgumentHandlerController(Action assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
+                Handler = assertionHandler;
             }
+        }
+    }
 
-            public class OneArgumentHandlerController : ITestAvaloniaController
+    public class AttributedToMethod
+    {
+        public class NoArgumentHandlerController : ITestAvaloniaController
+        {
+            [DataContext]
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
+            public void ChildElement_Click() => handler();
+            private readonly Action handler;
+
+            public NoArgumentHandlerController(Action assertionHandler)
             {
-                [DataContext]
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
-                public void ChildElement_Click(RoutedEventArgs e) => handler(e);
-                private readonly Action<RoutedEventArgs> handler;
-
-                public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
-            }
-
-            public class EventHandlerController : ITestAvaloniaController
-            {
-                [DataContext]
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
-                public void ChildElement_Click(object sender, RoutedEventArgs e) => handler(sender, e);
-                private readonly EventHandler<RoutedEventArgs> handler;
-
-                public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
+                handler = assertionHandler;
             }
         }
 
-        public class AttributedToMethodUsingNamingConvention
+        public class OneArgumentHandlerController : ITestAvaloniaController
         {
-            public class NoArgumentHandlerController : ITestAvaloniaController
+            [DataContext]
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
+            public void ChildElement_Click(RoutedEventArgs e) => handler(e);
+            private readonly Action<RoutedEventArgs> handler;
+
+            public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
             {
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                public void ChildElement_Click() => handler();
-                private readonly Action handler;
-
-                public NoArgumentHandlerController(Action assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
-            }
-
-            public class OneArgumentHandlerController : ITestAvaloniaController
-            {
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                public void ChildElement_Click(RoutedEventArgs e) => handler(e);
-                private readonly Action<RoutedEventArgs> handler;
-
-                public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
-            }
-
-            public class EventHandlerController : ITestAvaloniaController
-            {
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                public void ChildElement_Click(object sender, RoutedEventArgs e) => handler(sender, e);
-                private readonly EventHandler<RoutedEventArgs> handler;
-
-                public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
+                handler = assertionHandler;
             }
         }
 
-        public class AttributedToAsyncMethodUsingNamingConvention
+        public class EventHandlerController : ITestAvaloniaController
         {
-            public class NoArgumentHandlerController : ITestAvaloniaController
+            [DataContext]
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            [EventHandler(ElementName = nameof(ChildElement), Event = nameof(Button.Click))]
+            public void ChildElement_Click(object? sender, RoutedEventArgs e) => handler(sender, e);
+            private readonly EventHandler<RoutedEventArgs> handler;
+
+            public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
             {
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                public Task ChildElement_ClickAsync()
-                {
-                    handler();
-                    return Task.CompletedTask;
-                }
-                private readonly Action handler;
-
-                public NoArgumentHandlerController(Action assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
+                handler = assertionHandler;
             }
+        }
+    }
 
-            public class OneArgumentHandlerController : ITestAvaloniaController
+    public class AttributedToMethodUsingNamingConvention
+    {
+        public class NoArgumentHandlerController : ITestAvaloniaController
+        {
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            public void ChildElement_Click() => handler();
+            private readonly Action handler;
+
+            public NoArgumentHandlerController(Action assertionHandler)
             {
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
-
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
-
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
-
-                public Task ChildElement_ClickAsync(RoutedEventArgs e)
-                {
-                    handler(e);
-                    return Task.CompletedTask;
-                }
-                private readonly Action<RoutedEventArgs> handler;
-
-                public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
+                handler = assertionHandler;
             }
+        }
 
-            public class EventHandlerController : ITestAvaloniaController
+        public class OneArgumentHandlerController : ITestAvaloniaController
+        {
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            public void ChildElement_Click(RoutedEventArgs e) => handler(e);
+            private readonly Action<RoutedEventArgs> handler;
+
+            public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
             {
-                public void SetDataContext(object dataContext) => DataContext = dataContext;
-                public object DataContext { get; private set; }
+                handler = assertionHandler;
+            }
+        }
 
-                [Element(Name = "element")]
-                public void SetElement(StyledElement element) => Element = element;
-                public StyledElement Element { get; private set; }
+        public class EventHandlerController : ITestAvaloniaController
+        {
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
 
-                [Element]
-                public void SetChildElement(Button childElement) => ChildElement = childElement;
-                public Button ChildElement { get; private set; }
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
 
-                public Task ChildElement_ClickAsync(object sender, RoutedEventArgs e)
-                {
-                    handler(sender, e);
-                    return Task.CompletedTask;
-                }
-                private readonly EventHandler<RoutedEventArgs> handler;
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
 
-                public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
-                {
-                    handler = assertionHandler;
-                }
+            public void ChildElement_Click(object? sender, RoutedEventArgs e) => handler(sender, e);
+            private readonly EventHandler<RoutedEventArgs> handler;
+
+            public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
+            {
+                handler = assertionHandler;
+            }
+        }
+    }
+
+    public class AttributedToAsyncMethodUsingNamingConvention
+    {
+        public class NoArgumentHandlerController : ITestAvaloniaController
+        {
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            public Task ChildElement_ClickAsync()
+            {
+                handler();
+                return Task.CompletedTask;
+            }
+            private readonly Action handler;
+
+            public NoArgumentHandlerController(Action assertionHandler)
+            {
+                handler = assertionHandler;
+            }
+        }
+
+        public class OneArgumentHandlerController : ITestAvaloniaController
+        {
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            public Task ChildElement_ClickAsync(RoutedEventArgs e)
+            {
+                handler(e);
+                return Task.CompletedTask;
+            }
+            private readonly Action<RoutedEventArgs> handler;
+
+            public OneArgumentHandlerController(Action<RoutedEventArgs> assertionHandler)
+            {
+                handler = assertionHandler;
+            }
+        }
+
+        public class EventHandlerController : ITestAvaloniaController
+        {
+            public void SetDataContext(object? dataContext) => DataContext = dataContext;
+            public object? DataContext { get; private set; }
+
+            [Element(Name = "element")]
+            public void SetElement(StyledElement? element) => Element = element;
+            public StyledElement? Element { get; private set; }
+
+            [Element]
+            public void SetChildElement(Button? childElement) => ChildElement = childElement;
+            public Button? ChildElement { get; private set; }
+
+            public Task ChildElement_ClickAsync(object? sender, RoutedEventArgs e)
+            {
+                handler(sender, e);
+                return Task.CompletedTask;
+            }
+            private readonly EventHandler<RoutedEventArgs> handler;
+
+            public EventHandlerController(EventHandler<RoutedEventArgs> assertionHandler)
+            {
+                handler = assertionHandler;
             }
         }
     }
