@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Charites.Windows</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.10.1</Version>
@@ -18,12 +18,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Binary\Debug\</OutputPath>
-    <DocumentationFile>..\..\Binary\Debug\netstandard2.0\AvaloniaMvc.xml</DocumentationFile>
+    <DocumentationFile>..\..\Binary\Debug\net6.0\AvaloniaMvc.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\Binary\Release\</OutputPath>
-    <DocumentationFile>..\..\Binary\Release\netstandard2.0\AvaloniaMvc.xml</DocumentationFile>
+    <DocumentationFile>..\..\Binary\Release\net6.0\AvaloniaMvc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
