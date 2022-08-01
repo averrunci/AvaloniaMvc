@@ -40,7 +40,7 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
     {
         var targetElement = element.FindElement<StyledElement>(eventHandlerAttribute.ElementName);
         var routedEvent = RetrieveRoutedEvent(targetElement, eventHandlerAttribute.Event);
-        var eventInfo = RetrieveEventInfo(element, eventHandlerAttribute.Event);
+        var eventInfo = RetrieveEventInfo(targetElement, eventHandlerAttribute.Event);
         eventHandlers.Add(new AvaloniaEventHandlerItem(
             eventHandlerAttribute.ElementName, targetElement,
             eventHandlerAttribute.Event, routedEvent, eventInfo,
