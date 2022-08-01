@@ -8,5 +8,7 @@ namespace Charites.Windows.Mvc;
 
 internal sealed class AvaloniaElementInjector : ElementInjector<StyledElement>, IAvaloniaElementInjector
 {
-    protected override object? FindElement(StyledElement? rootElement, string elementName) => rootElement.FindElement<object>(elementName);
+    public AvaloniaElementInjector(IElementFinder<StyledElement> elementFinder) : base(elementFinder)
+    {
+    }
 }

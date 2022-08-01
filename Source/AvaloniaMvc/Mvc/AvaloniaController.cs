@@ -39,6 +39,20 @@ public class AvaloniaController
     public static IDataContextInjector DataContextInjector { get; set; } = new DataContextInjector();
 
     /// <summary>
+    /// Gets or sets the finder to find an element in a view.
+    /// </summary>
+    public static IAvaloniaElementFinder ElementFinder
+    {
+        get => elementFinder;
+        set
+        {
+            elementFinder = value;
+            EnsureElementInjector();
+        }
+    }
+    private static IAvaloniaElementFinder elementFinder = new AvaloniaElementFinder();
+
+    /// <summary>
     /// Gets or sets the finder to find a key of an element.
     /// </summary>
     public static IAvaloniaElementKeyFinder ElementKeyFinder
@@ -55,7 +69,7 @@ public class AvaloniaController
     /// <summary>
     /// Gets or sets the injector to inject elements in a view to a controller.
     /// </summary>
-    public static IAvaloniaElementInjector ElementInjector { get; set; } = new AvaloniaElementInjector();
+    public static IAvaloniaElementInjector ElementInjector { get; set; } = new AvaloniaElementInjector(ElementFinder);
 
     /// <summary>
     /// Gets or sets the finder to find a type of a controller that controls a view.
@@ -176,8 +190,6 @@ public class AvaloniaController
 
     static AvaloniaController()
     {
-        EnsureControllerTypeFinder();
-
         Assembly.GetExecutingAssembly().GetTypes()
             .Where(type => typeof(IAvaloniaControllerExtension).IsAssignableFrom(type))
             .Where(type => type.IsClass && !type.IsAbstract)
@@ -192,6 +204,11 @@ public class AvaloniaController
     private static void EnsureControllerTypeFinder()
     {
         ControllerTypeFinder = new AvaloniaControllerTypeFinder(ElementKeyFinder, DataContextFinder);
+    }
+
+    private static void EnsureElementInjector()
+    {
+        ElementInjector = new AvaloniaElementInjector(ElementFinder);
     }
 
     /// <summary>

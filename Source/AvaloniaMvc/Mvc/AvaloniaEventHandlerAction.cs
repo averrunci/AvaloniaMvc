@@ -8,12 +8,9 @@ namespace Charites.Windows.Mvc;
 
 internal sealed class AvaloniaEventHandlerAction : EventHandlerAction
 {
-    public AvaloniaEventHandlerAction(MethodInfo method, object? target) : base(method, target)
+    public AvaloniaEventHandlerAction(MethodInfo method, object? target, IParameterDependencyResolver parameterDependencyResolver) : base(method, target, parameterDependencyResolver)
     {
     }
 
     protected override bool HandleUnhandledException(Exception exc) => AvaloniaController.HandleUnhandledException(exc);
-
-    protected override IParameterDependencyResolver CreateParameterDependencyResolver(IDictionary<Type, Func<object?>>? dependencyResolver)
-        => dependencyResolver is null ? new AvaloniaParameterDependencyResolver() : new AvaloniaParameterDependencyResolver(dependencyResolver);
 }

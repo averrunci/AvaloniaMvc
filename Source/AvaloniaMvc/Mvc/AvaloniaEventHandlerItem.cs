@@ -34,7 +34,8 @@ public class AvaloniaEventHandlerItem : EventHandlerItem<StyledElement>
     /// handler with the default condition that it will not be invoked if the event
     /// is already marked handled.
     /// </param>
-    public AvaloniaEventHandlerItem(string elementName, StyledElement? element, string eventName, RoutedEvent? routedEvent, EventInfo? eventInfo, Delegate? handler, bool handledEventsToo) : base(elementName, element, eventName, handler, handledEventsToo)
+    /// <param name="parameterResolver">The resolver to resolve parameters.</param>
+    public AvaloniaEventHandlerItem(string elementName, StyledElement? element, string eventName, RoutedEvent? routedEvent, EventInfo? eventInfo, Delegate? handler, bool handledEventsToo, IEnumerable<IEventHandlerParameterResolver> parameterResolver) : base(elementName, element, eventName, handler, handledEventsToo, parameterResolver)
     {
         this.routedEvent = routedEvent;
         this.eventInfo = eventInfo;
@@ -78,15 +79,5 @@ public class AvaloniaEventHandlerItem : EventHandlerItem<StyledElement>
         {
             eventInfo?.RemoveMethod?.Invoke(element, new object[] { handler });
         }
-    }
-
-    /// <summary>
-    /// Creates the resolver to resolve dependencies of parameters.
-    /// </summary>
-    /// <param name="dependencyResolver">The resolver to resolve dependencies of parameters.</param>
-    /// <returns>The resolver to resolve dependencies of parameters.</returns>
-    protected override IParameterDependencyResolver CreateParameterDependencyResolver(IDictionary<Type, Func<object?>>? dependencyResolver)
-    {
-        return dependencyResolver is null ? new AvaloniaParameterDependencyResolver() : new AvaloniaParameterDependencyResolver(dependencyResolver);
     }
 }

@@ -18,6 +18,13 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
     private static readonly AvaloniaProperty<IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>> EventHandlerBasesProperty
         = AvaloniaProperty.RegisterAttached<AvaloniaEventHandlerExtension, StyledElement, IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>>("EventHandlerBases");
 
+    public AvaloniaEventHandlerExtension()
+    {
+        Add<AvaloniaEventHandlerParameterFromDIResolver>();
+        Add<AvaloniaEventHandlerParameterFromElementResolver>();
+        Add<AvaloniaEventHandlerParameterFromDataContextResolver>();
+    }
+
     protected override IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>> EnsureEventHandlerBases(StyledElement? element)
     {
         if (element is null) return new Dictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>();
@@ -38,11 +45,13 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
             eventHandlerAttribute.ElementName, targetElement,
             eventHandlerAttribute.Event, routedEvent, eventInfo,
             handlerCreator(routedEvent?.EventArgsType is null ? eventInfo?.EventHandlerType : typeof(EventHandler<>).MakeGenericType(routedEvent.EventArgsType)),
-            eventHandlerAttribute.HandledEventsToo
+            eventHandlerAttribute.HandledEventsToo,
+            CreateParameterResolver(element)
         ));
     }
 
-    protected override EventHandlerAction CreateEventHandlerAction(MethodInfo method, object? target) => new AvaloniaEventHandlerAction(method, target);
+    protected override EventHandlerAction CreateEventHandlerAction(MethodInfo method, object? target, StyledElement? element)
+        => new AvaloniaEventHandlerAction(method, target, CreateParameterDependencyResolver(CreateParameterResolver(element)));
 
     protected override void OnEventHandlerAdded(EventHandlerBase<StyledElement, AvaloniaEventHandlerItem> eventHandlers, StyledElement element)
     {
