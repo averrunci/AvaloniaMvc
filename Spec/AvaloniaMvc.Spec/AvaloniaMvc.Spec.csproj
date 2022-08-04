@@ -28,4 +28,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="Carna.AssemblyFixtureAttribute">
+      <RequiresSta>true</RequiresSta>
+      <RequiresSta_TypeName>System.Boolean</RequiresSta_TypeName>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>
