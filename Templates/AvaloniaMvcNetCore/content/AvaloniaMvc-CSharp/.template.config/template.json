@@ -4,14 +4,16 @@
   "description": "Avalonia client application with the Model-View-Controller architecture.",
   "groupIdentity": "AvaloniaMvc",
   "identity": "AvaloniaMvc.CSharp",
-  "shortName": "avaloniamvc",
+  "shortName": "avalonia.mvc",
   "tags": {
     "language": "C#",
     "type": "project"
   },
   "classifications": [
-    "Common",
-    "Avalonia"
+    "ui",
+    "xaml",
+    "avalonia",
+    "avaloniaui"
   ],
   "sourceName": "AvaloniaMvcApp",
   "preferNameDirectory": true

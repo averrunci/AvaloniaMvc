@@ -1,28 +1,24 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
-namespace AvaloniaMvcApp
+namespace AvaloniaMvcApp;
+
+internal class AvaloniaMvcApp : IHostedService
 {
-    internal class AvaloniaMvcApp : IHostedService
+    private readonly IAvaloniaMvcAppBootstrapper bootstrapper;
+
+    public AvaloniaMvcApp(IAvaloniaMvcAppBootstrapper bootstrapper)
     {
-        private readonly IAvaloniaMvcAppBootstrapper bootstrapper;
+        this.bootstrapper = bootstrapper;
+    }
 
-        public AvaloniaMvcApp(IAvaloniaMvcAppBootstrapper bootstrapper)
-        {
-            this.bootstrapper = bootstrapper ?? throw new ArgumentNullException(nameof(bootstrapper));
-        }
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        bootstrapper.Bootstrap();
+        return Task.CompletedTask;
+    }
 
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            bootstrapper.Bootstrap();
-            return Task.CompletedTask;
-        }
-
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
-        }
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
     }
 }

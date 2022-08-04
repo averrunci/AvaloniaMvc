@@ -1,6 +1,5 @@
-﻿namespace AvaloniaMvcApp
+﻿namespace AvaloniaMvcApp;
+
+public class AvaloniaMvcAppHost
 {
-    public class AvaloniaMvcAppHost
-    {
-    }
 }

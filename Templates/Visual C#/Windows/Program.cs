@@ -2,20 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace $safeprojectname$
+namespace $safeprojectname$;
+
+internal static class $safeitemrootname$
 {
-    internal class $safeitemrootname$
-    {
-        private static void Main()
-            => CreateHostBuilder().Build().Run();
+    [STAThread]
+    private static void Main() => CreateHostBuilder().Build().Run();
 
-        private static IHostBuilder CreateHostBuilder()
-            => Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) => ConfigureServices(context.Configuration, services));
+    private static IHostBuilder CreateHostBuilder()
+        => Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services) => ConfigureServices(context.Configuration, services));
 
-        private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
-            => services.AddHostedService<$safeprojectname$>()
-                .AddSingleton<I$safeprojectname$Bootstrapper, $safeprojectname$Bootstrapper>()
-                .AddControllers();
-    }
+    private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+        => services.AddHostedService<$safeprojectname$>()
+            .AddSingleton<I$safeprojectname$Bootstrapper, $safeprojectname$Bootstrapper>()
+            .AddControllers();
 }

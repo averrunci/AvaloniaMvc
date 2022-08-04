@@ -1,18 +1,16 @@
-﻿using System;
-using Charites.Windows.Mvc;
+﻿using Charites.Windows.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace $safeprojectname$
+namespace $safeprojectname$;
+
+internal class $safeitemrootname$ : IAvaloniaControllerFactory
 {
-    internal class $safeitemrootname$ : IAvaloniaControllerFactory
+    private readonly IServiceProvider services;
+
+    public $safeitemrootname$(IServiceProvider services)
     {
-        private readonly IServiceProvider services;
-
-        public $safeitemrootname$(IServiceProvider services)
-        {
-            this.services = services ?? throw new ArgumentNullException(nameof(services));
-        }
-
-        public object Create(Type controllerType) => services.GetRequiredService(controllerType);
+        this.services = services;
     }
+
+    public object Create(Type controllerType) => services.GetRequiredService(controllerType);
 }

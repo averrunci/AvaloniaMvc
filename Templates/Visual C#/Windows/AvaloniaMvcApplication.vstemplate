@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
   <TemplateData>
-    <Name>Avalonia Mvc App (.NET Core)</Name>
+    <Name>Avalonia Mvc App (AvaloniaUI)</Name>
     <Description>Avalonia client application with the Model-View-Controller architecture</Description>
     <Icon Package="{b3bae735-386c-4030-8329-ef48eeda4036}" ID="4602" />
     <ProjectType>CSharp</ProjectType>
@@ -14,20 +14,23 @@
     <CreateInPlace>true</CreateInPlace>
     <LanguageTag>CSharp</LanguageTag>
     <PlatformTag>Windows</PlatformTag>
-    <ProjectTypeTag>Desktop</ProjectTypeTag>
+    <ProjectTypeTag>avalonia</ProjectTypeTag>
+    <ProjectTypeTag>avaloniaui</ProjectTypeTag>
+    <ProjectTypeTag>ui</ProjectTypeTag>
+    <ProjectTypeTag>XAML</ProjectTypeTag>
   </TemplateData>
   <TemplateContent>
     <Project File="AvaloniaMvcApp.csproj" ReplaceParameters="true">
       <Folder Name="Assets" TargetFolderName="Assets" />
       <Folder Name="Resources" TargetFolderName="Resources">
         <Folder Name="Styles" TargetFolderName="Styles">
-          <ProjectItem ReplaceParameters="true" TargetFileName="WindowStyle.xaml">WindowStyle.xaml</ProjectItem>
+          <ProjectItem ReplaceParameters="true" TargetFileName="WindowStyle.axaml">WindowStyle.axaml</ProjectItem>
         </Folder>
         <Folder Name="Templates" TargetFolderName="Templates">
-          <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$HostTemplate.xaml">AvaloniaMvcAppHostTemplate.xaml</ProjectItem>
+          <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$HostTemplate.axaml">AvaloniaMvcAppHostTemplate.axaml</ProjectItem>
         </Folder>
-        <ProjectItem ReplaceParameters="true" TargetFileName="Styles.xaml">Styles.xaml</ProjectItem>
-        <ProjectItem ReplaceParameters="true" TargetFileName="Templates.xaml">Templates.xaml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Styles.axaml">Styles.axaml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Templates.axaml">Templates.axaml</ProjectItem>
       </Folder>
       <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.cs">AvaloniaMvcApp.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$Application.cs">AvaloniaMvcAppApplication.cs</ProjectItem>

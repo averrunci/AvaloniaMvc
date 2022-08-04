@@ -1,7 +1,6 @@
-﻿namespace $safeprojectname$
+﻿namespace $safeprojectname$;
+
+public interface $safeitemrootname$
 {
-    public interface $safeitemrootname$
-    {
-        void Bootstrap();
-    }
+    void Bootstrap();
 }

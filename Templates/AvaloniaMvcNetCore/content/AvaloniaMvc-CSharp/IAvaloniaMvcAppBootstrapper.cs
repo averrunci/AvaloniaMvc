@@ -1,7 +1,6 @@
-﻿namespace AvaloniaMvcApp
+﻿namespace AvaloniaMvcApp;
+
+public interface IAvaloniaMvcAppBootstrapper
 {
-    public interface IAvaloniaMvcAppBootstrapper
-    {
-        void Bootstrap();
-    }
+    void Bootstrap();
 }

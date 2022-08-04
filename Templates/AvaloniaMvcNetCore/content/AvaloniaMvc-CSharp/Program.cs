@@ -2,20 +2,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AvaloniaMvcApp
+namespace AvaloniaMvcApp;
+
+internal static class Program
 {
-    internal static class Program
-    {
-        private static void Main()
-            => CreateHostBuilder().Build().Run();
+    [STAThread]
+    private static void Main() => CreateHostBuilder().Build().Run();
 
-        private static IHostBuilder CreateHostBuilder()
-            => Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) => ConfigureServices(context.Configuration, services));
+    private static IHostBuilder CreateHostBuilder()
+        => Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services) => ConfigureServices(context.Configuration, services));
 
-        private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
-            => services.AddHostedService<AvaloniaMvcApp>()
-                .AddSingleton<IAvaloniaMvcAppBootstrapper, AvaloniaMvcAppBootstrapper>()
-                .AddControllers();
-    }
+    private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+        => services.AddHostedService<AvaloniaMvcApp>()
+            .AddSingleton<IAvaloniaMvcAppBootstrapper, AvaloniaMvcAppBootstrapper>()
+            .AddControllers();
 }

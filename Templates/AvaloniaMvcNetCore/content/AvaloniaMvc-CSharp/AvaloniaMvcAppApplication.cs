@@ -1,41 +1,40 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Themes.Fluent;
 using Charites.Windows.Mvc;
 
-namespace AvaloniaMvcApp
+namespace AvaloniaMvcApp;
+
+public class AvaloniaMvcAppApplication : Application
 {
-    public class AvaloniaMvcAppApplication : Application
+    public override void Initialize()
     {
-        public AvaloniaMvcAppApplication()
-        {
-            var avaloniaBaseUri = new Uri("avares://Avalonia.Themes.Default");
-            Styles.Add(new StyleInclude(avaloniaBaseUri) { Source = new Uri("DefaultTheme.xaml", UriKind.Relative) });
-            Styles.Add(new StyleInclude(avaloniaBaseUri) { Source = new Uri("Accents/BaseDark.xaml", UriKind.Relative) });
+        Styles.Add(new FluentTheme(new Uri("avares://AvaloniaMvcApp/Resources/Styles")) { Mode = FluentThemeMode.Dark });
 
-            var baseUri = new Uri("avares://AvaloniaMvcApp");
-            Styles.Add(new StyleInclude(baseUri) { Source = new Uri("Resources/Styles.axaml", UriKind.Relative) });
-            DataTemplates.Add(new DataTemplateInclude(baseUri) { Source = new Uri("Resources/Templates.axaml", UriKind.Relative) });
-        }
+        var baseUri = new Uri("avares://AvaloniaMvcApp");
+        Styles.Add(new StyleInclude(baseUri) { Source = new Uri("Resources/Styles.axaml", UriKind.Relative) });
+        DataTemplates.Add(new DataTemplateInclude(baseUri) { Source = new Uri("Resources/Templates.axaml", UriKind.Relative) });
+        
+        base.Initialize();
+    }
 
-        public override void OnFrameworkInitializationCompleted()
+    public override void OnFrameworkInitializationCompleted()
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            desktop.MainWindow = new Window
             {
-                desktop.MainWindow = new Window
-                {
-                    DataContext = new AvaloniaMvcAppHost()
-                };
-                desktop.MainWindow.Classes.Add("window");
+                DataContext = new AvaloniaMvcAppHost()
+            };
+            desktop.MainWindow.Classes.Add("window");
 
 #if DEBUG
-                desktop.MainWindow.AttachDevTools();
+            desktop.MainWindow.AttachDevTools();
 #endif
-            }
-
-            base.OnFrameworkInitializationCompleted();
         }
+
+        base.OnFrameworkInitializationCompleted();
     }
 }

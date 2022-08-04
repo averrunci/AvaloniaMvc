@@ -1,6 +1,5 @@
-﻿namespace $safeprojectname$
+﻿namespace $safeprojectname$;
+
+public class $safeitemrootname$
 {
-    public class $safeitemrootname$
-    {
-    }
 }
