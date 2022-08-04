@@ -1,5 +1,5 @@
 ﻿<!--
-Copyright (C) 2020 Fievus
+Copyright (C) 2020-2022 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
@@ -7,12 +7,17 @@ of the MIT license.  See the LICENSE file for details.
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="TextBox">
+        <Style.Resources>
+            <Thickness x:Key="TextControlBorderThemeThicknessFocused">0,0,0,2</Thickness>
+        </Style.Resources>
+        
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
-        <Setter Property="Background" Value="#343434"/>
+        <Setter Property="CornerRadius" Value="4,4,0,0"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FocusAdorner" Value="{x:Null}"/>
     </Style>
 
     <Style Selector="TextBox:focus /template/ Border#border">
-        <Setter Property="BorderBrush" Value="Blue"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundAccentBrush}"/>
     </Style>
 </Styles>

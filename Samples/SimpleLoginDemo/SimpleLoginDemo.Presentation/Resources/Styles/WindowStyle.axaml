@@ -1,0 +1,18 @@
+﻿<!--
+Copyright (C) 2020-2022 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector="Window.window">
+        <Setter Property="Width" Value="800"/>
+        <Setter Property="Height" Value="600"/>
+        <Setter Property="Title" Value="SimpleLoginDemo"/>
+        <Setter Property="Background" Value="#121212"/>
+        <Setter Property="WindowStartupLocation" Value="CenterScreen"/>
+        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
+        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="84"/>
+        <Setter Property="Content" Value="{Binding}"/>
+    </Style>
+</Styles>

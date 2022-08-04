@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo.Presentation</RootNamespace>
     <Version>0.10.1</Version>
     <Authors>averrunci</Authors>
-    <Copyright>Copyright (C) 2020-2021 Fievus</Copyright>
+    <Copyright>Copyright (C) 2020-2022 Fievus</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>0.10.1</AssemblyVersion>
@@ -18,11 +20,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Carna" Version="1.8.2">
+    <PackageReference Include="Carna" Version="2.1.0">
       <PrivateAssets>all</PrivateAssets>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="NSubstitute" Version="4.2.2" />
+    <PackageReference Include="NSubstitute" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="Carna.AssemblyFixtureAttribute">
+      <RequiresSta>true</RequiresSta>
+      <RequiresSta_TypeName>System.Boolean</RequiresSta_TypeName>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

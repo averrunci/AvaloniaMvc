@@ -1,5 +1,5 @@
 ﻿<!--
-Copyright (C) 2020 Fievus
+Copyright (C) 2020-2022 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
@@ -9,18 +9,18 @@ of the MIT license.  See the LICENSE file for details.
         <Setter Property="Margin" Value="8,4,0,0"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemErrorTextColor}"/>
     </Style>
 
     <Style Selector="Border.container">
         <Setter Property="Width" Value="250"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="12"/>
-        <Setter Property="Background" Value="#343434"/>
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
     </Style>
 
     <Style Selector="StackPanel.input">

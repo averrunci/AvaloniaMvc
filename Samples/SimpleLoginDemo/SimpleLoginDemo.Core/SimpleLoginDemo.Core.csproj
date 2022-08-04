@@ -1,10 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo.Adapter</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo.Core</RootNamespace>
     <Version>0.10.1</Version>
     <Authors>averrunci</Authors>
     <Copyright>Copyright (C) 2020-2022 Fievus</Copyright>
@@ -13,10 +15,5 @@
     <AssemblyVersion>0.10.1</AssemblyVersion>
     <FileVersion>0.10.1</FileVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SimpleLoginDemo.Core\SimpleLoginDemo.Core.csproj" />
-    <ProjectReference Include="..\SimpleLoginDemo.Presentation\SimpleLoginDemo.Presentation.csproj" />
-  </ItemGroup>
 
 </Project>

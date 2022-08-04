@@ -118,16 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Copyright" xml:space="preserve">
-    <value>Copyright (C) 2020-2021 Fievus</value>
+    <value>Copyright (C) 2020-2022 Fievus</value>
   </data>
   <data name="LoginButtonText" xml:space="preserve">
     <value>Log in</value>
   </data>
   <data name="LoginFailureMessage" xml:space="preserve">
     <value>Login id or password is invalid.</value>
-  </data>
-  <data name="LoginNotAvailable" xml:space="preserve">
-    <value>Login is not available</value>
   </data>
   <data name="LogoutButtonText" xml:space="preserve">
     <value>Log out</value>
