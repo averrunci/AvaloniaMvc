@@ -1,0 +1,58 @@
+﻿<!--
+Copyright (C) 2022 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<DataTemplate xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:a="clr-namespace:Charites.Windows.Mvc;assembly=AvaloniaMvc"
+              xmlns:m="clr-namespace:Charites.Windows.Samples.SimpleTodo.Contents"
+              xmlns:c="clr-namespace:Charites.Windows.Samples.SimpleTodo.Converters"
+              DataType="{x:Type m:TodoItem}">
+    <Border Name="Root"
+            a:AvaloniaController.IsEnabled="True"
+            Classes="todoItemContainer">
+        <Border.Styles>
+            <StyleInclude Source="/Resources/Styles/TodoItemStyle.axaml"/>
+        </Border.Styles>
+        <Border.Resources>
+            <c:TodoItemStateToBooleanConverter x:Key="TodoItemStateToBooleanConverter"/>
+            <c:BooleanToOpacityConverter x:Key="BooleanToOpacityConverter"/>
+            <c:TodoItemStateToOpacityConverter x:Key="TodoItemStateToOpacityConverter"/>
+        </Border.Resources>
+        
+        <DockPanel>
+            <CheckBox DockPanel.Dock="Left"
+                      IsChecked="{Binding State.Value, Converter={StaticResource TodoItemStateToBooleanConverter}}"/>
+            
+            <Button Name="DeleteButton"
+                    DockPanel.Dock="Right"
+                    Classes="delete"
+                    IsVisible="{Binding !IsEditing.Value}"
+                    Opacity="{Binding #Root.IsPointerOver, Converter={StaticResource BooleanToOpacityConverter}}">
+                <Button.Content>
+                    <Path Data="M 0,0 L10,10 M10,0 L0,10"
+                          Stroke="Red" StrokeThickness="1"/>
+                </Button.Content>
+            </Button>
+        
+            <Panel Name="TodoItemContainer" Classes="todoItemContainer">
+                <TextBlock Name="TodoContentTextBlock"
+                           ToolTip.Tip="{Binding Content.Value}"
+                           Classes="todoContent"
+                           IsVisible="{Binding !IsEditing.Value}"
+                           Text="{Binding Content.Value}"
+                           Opacity="{Binding State.Value, Converter={StaticResource TodoItemStateToOpacityConverter}, ConverterParameter=1}"/>
+                <Line Name="StrikeThroughLine"
+                      Classes="strikeThrough"
+                      IsVisible="{Binding !IsEditing.Value}"
+                      Opacity="{Binding State.Value, Converter={StaticResource TodoItemStateToOpacityConverter}, ConverterParameter=0}"/>
+                <TextBox Name="TodoContentTextBox"
+                         Classes="todoContent"
+                         IsVisible="{Binding IsEditing.Value}"
+                         Text="{Binding EditContent.Value}"/>
+            </Panel>
+        </DockPanel>
+    </Border>
+</DataTemplate>

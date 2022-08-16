@@ -1,0 +1,15 @@
+﻿{
+  "assemblies": [
+    "SimpleTodo.Spec\\bin\\Debug\\net6.0\\SimpleTodo.Spec.dll"
+  ],
+  "reporters": [
+    {
+      "reporter": {
+        "type": "Carna.ConsoleRunner.Reporters.ConsoleFixtureReporter,carna-runner",
+        "options": {
+          "stepVisible": true
+        }
+      }
+    }
+  ]
+}

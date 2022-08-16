@@ -1,0 +1,61 @@
+﻿<!--
+Copyright (C) 2022 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<DataTemplate xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:a="clr-namespace:Charites.Windows.Mvc;assembly=AvaloniaMvc"
+              xmlns:m="clr-namespace:Charites.Windows.Samples.SimpleTodo.Contents"
+              xmlns:c="clr-namespace:Charites.Windows.Samples.SimpleTodo.Converters"
+              DataType="{x:Type m:SimpleTodoContent}">
+    <Border a:AvaloniaController.IsEnabled="True" Classes="container">
+        <Border.Styles>
+            <StyleInclude Source="/Resources/Styles/SimpleTodoContentStyle.axaml"/>
+        </Border.Styles>
+        <Border.Resources>
+            <c:TodoItemDisplayStateToBooleanConverter x:Key="TodoItemDisplayStateToBooleanConverter"/>
+        </Border.Resources>
+        
+        <DockPanel>
+            <Border DockPanel.Dock="Top" Classes="input">
+                <DockPanel>
+                    <CheckBox DockPanel.Dock="Left"
+                              IsChecked="{Binding AllCompleted.Value}"/>
+                    <TextBox Name="TodoContentTextBox"
+                             Classes="todoContent"
+                             Text="{Binding TodoContent.Value}"/>
+                </DockPanel>
+            </Border>
+            
+            <Border DockPanel.Dock="Bottom" Classes="command">
+                <DockPanel>
+                    <ToggleButton DockPanel.Dock="Right"
+                                  Content="{x:Static m:TodoItemState.Completed}"
+                                  IsChecked="{Binding TodoItemDisplayState.Value,
+                                                      Converter={StaticResource TodoItemDisplayStateToBooleanConverter},
+                                                      ConverterParameter=Completed}"/>
+                    <ToggleButton DockPanel.Dock="Right"
+                                  Content="{x:Static m:TodoItemState.Active}"
+                                  IsChecked="{Binding TodoItemDisplayState.Value,
+                                                      Converter={StaticResource TodoItemDisplayStateToBooleanConverter},
+                                                      ConverterParameter=Active}"/>
+                    <ToggleButton DockPanel.Dock="Right"
+                                  Content="{x:Static m:TodoItemState.All}"
+                                  IsChecked="{Binding TodoItemDisplayState.Value,
+                                                      Converter={StaticResource TodoItemDisplayStateToBooleanConverter},
+                                                      ConverterParameter=All}"/>
+                
+                    <TextBlock Classes="itemsLeftMessage"
+                               Text="{Binding ItemsLeftMessage.Value}"/>
+                </DockPanel>
+            </Border>
+            
+            <Border Classes="todoList">
+                <ListBox Classes="todoList"
+                         Items="{Binding TodoItems}"/>
+            </Border>
+        </DockPanel>
+    </Border>
+</DataTemplate>

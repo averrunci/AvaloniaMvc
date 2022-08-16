@@ -1,0 +1,32 @@
+﻿<!--
+Copyright (C) 2022 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector="Border.header">
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+    </Style>
+    
+    <Style Selector="TextBlock.title">
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    
+    <Style Selector="Border.footer">
+        <Setter Property="Height" Value="36"/>
+    </Style>
+    
+    <Style Selector="TextBlock.copyright">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    
+    <Style Selector="Border.body">
+        <Setter Property="Background" Value="#292929"/>
+    </Style>
+</Styles>
