@@ -42,7 +42,7 @@ public sealed class AvaloniaControllerCollection : ControllerCollection<StyledEl
     /// <c>true</c> if the element to which controllers are attached is loaded;
     /// otherwise, <c>false</c> is returned.
     /// </returns>
-    protected override bool IsAssociatedElementLoaded(StyledElement associatedElement) => associatedElement.Parent is not null;
+    protected override bool IsAssociatedElementLoaded(StyledElement associatedElement) => ((ILogical)associatedElement).IsAttachedToLogicalTree;
 
     /// <summary>
     /// Subscribes events of the element to which controllers are attached.
