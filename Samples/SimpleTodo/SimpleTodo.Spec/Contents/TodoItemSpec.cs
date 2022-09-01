@@ -73,4 +73,14 @@ class TodoItemSpec : FixtureSteppable
         When("to revert", () => TodoItem.Revert());
         Then("the state should be Active", () => TodoItem.State.Value == TodoItemState.Active);
     }
+
+    [Example("Gets a value that indicates whether a to-do is completed")]
+    [Sample(TodoItemState.Active, false, Description = "When a state is Active")]
+    [Sample(TodoItemState.Completed, true, Description = "When a state is Completed")]
+    [Sample(TodoItemState.All, false, Description = "When a state is All")]
+    void Ex05(TodoItemState state, bool expected)
+    {
+        TodoItem.State.Value = state;
+        Expect($"the value should be {expected}", () => TodoItem.IsCompleted.Value == expected);
+    }
 }

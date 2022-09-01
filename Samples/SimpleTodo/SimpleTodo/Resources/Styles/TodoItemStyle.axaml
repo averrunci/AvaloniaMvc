@@ -12,6 +12,11 @@ of the MIT license.  See the LICENSE file for details.
     <Style Selector="Button.delete">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Padding" Value="8"/>
+        <Setter Property="Opacity" Value="0"/>
+    </Style>
+    
+    <Style Selector="Button.delete.show">
+        <Setter Property="Opacity" Value="1"/>
     </Style>
     
     <Style Selector="Panel.todoItemContainer">
@@ -25,6 +30,10 @@ of the MIT license.  See the LICENSE file for details.
         <Setter Property="FontSize" Value="16"/>
     </Style>
     
+    <Style Selector="TextBlock.todoContent.completed">
+        <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+    
     <Style Selector="Line.strikeThrough">
         <Setter Property="Stroke" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
         <Setter Property="StrokeThickness" Value="1"/>
@@ -33,6 +42,11 @@ of the MIT license.  See the LICENSE file for details.
         <Setter Property="StartPoint" Value="0,0"/>
         <Setter Property="EndPoint" Value="1,0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Opacity" Value="0"/>
+    </Style>
+    
+    <Style Selector="Line.strikeThrough.completed">
+        <Setter Property="Opacity" Value="0.5"/>
     </Style>
     
     <Style Selector="TextBox.todoContent">

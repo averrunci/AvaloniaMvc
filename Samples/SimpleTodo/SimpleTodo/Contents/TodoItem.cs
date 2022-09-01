@@ -15,9 +15,12 @@ public class TodoItem
     public ObservableProperty<bool> IsEditing { get; } = false.ToObservableProperty();
 
     public ObservableProperty<TodoItemState> State { get; } = TodoItemState.Active.ToObservableProperty();
+    public BoundProperty<bool> IsCompleted { get; }
 
     public TodoItem(string content)
     {
+        IsCompleted = BoundProperty<bool>.By(State, state => state == TodoItemState.Completed);
+        
         Content = content.ToObservableProperty();
     }
 

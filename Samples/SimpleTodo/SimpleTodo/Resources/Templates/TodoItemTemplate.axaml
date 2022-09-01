@@ -18,8 +18,6 @@ of the MIT license.  See the LICENSE file for details.
         </Border.Styles>
         <Border.Resources>
             <c:TodoItemStateToBooleanConverter x:Key="TodoItemStateToBooleanConverter"/>
-            <c:BooleanToOpacityConverter x:Key="BooleanToOpacityConverter"/>
-            <c:TodoItemStateToOpacityConverter x:Key="TodoItemStateToOpacityConverter"/>
         </Border.Resources>
         
         <DockPanel>
@@ -29,8 +27,8 @@ of the MIT license.  See the LICENSE file for details.
             <Button Name="DeleteButton"
                     DockPanel.Dock="Right"
                     Classes="delete"
-                    IsVisible="{Binding !IsEditing.Value}"
-                    Opacity="{Binding #Root.IsPointerOver, Converter={StaticResource BooleanToOpacityConverter}}">
+                    Classes.show="{Binding #Root.IsPointerOver}"
+                    IsVisible="{Binding !IsEditing.Value}">
                 <Button.Content>
                     <Path Data="M 0,0 L10,10 M10,0 L0,10"
                           Stroke="Red" StrokeThickness="1"/>
@@ -41,13 +39,13 @@ of the MIT license.  See the LICENSE file for details.
                 <TextBlock Name="TodoContentTextBlock"
                            ToolTip.Tip="{Binding Content.Value}"
                            Classes="todoContent"
+                           Classes.completed="{Binding IsCompleted.Value}"
                            IsVisible="{Binding !IsEditing.Value}"
-                           Text="{Binding Content.Value}"
-                           Opacity="{Binding State.Value, Converter={StaticResource TodoItemStateToOpacityConverter}, ConverterParameter=1}"/>
+                           Text="{Binding Content.Value}"/>
                 <Line Name="StrikeThroughLine"
                       Classes="strikeThrough"
-                      IsVisible="{Binding !IsEditing.Value}"
-                      Opacity="{Binding State.Value, Converter={StaticResource TodoItemStateToOpacityConverter}, ConverterParameter=0}"/>
+                      Classes.completed="{Binding IsCompleted.Value}"
+                      IsVisible="{Binding !IsEditing.Value}"/>
                 <TextBox Name="TodoContentTextBox"
                          Classes="todoContent"
                          IsVisible="{Binding IsEditing.Value}"
