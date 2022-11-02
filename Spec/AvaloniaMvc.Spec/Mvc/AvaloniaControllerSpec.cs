@@ -13,7 +13,8 @@ namespace Charites.Windows.Mvc;
     typeof(AvaloniaControllerSpec_ExecuteHandler),
     typeof(AvaloniaControllerSpec_AvaloniaControllerExtension),
     typeof(AvaloniaControllerSpec_EventHandlerInjectionForAttachedEvent),
-    typeof(AvaloniaControllerSpec_UnhandledException)
+    typeof(AvaloniaControllerSpec_UnhandledException),
+    typeof(AvaloniaControllerSpec_RoutedEventHandlerInjection)
 )]
 class AvaloniaControllerSpec
 {

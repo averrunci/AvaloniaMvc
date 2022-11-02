@@ -4,6 +4,7 @@
 // of the MIT license.  See the LICENSE file for details.
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 
 namespace Charites.Windows.Mvc;
@@ -37,9 +38,13 @@ internal class TestAvaloniaControllers
         [EventHandler(Event = nameof(StyledElement.DataContextChanged))]
         protected void OnDataContextChanged() { }
 
+        [RoutedEventHandler(ElementName = nameof(Element), Event = nameof(InputElement.KeyDown), Routes = RoutingStrategies.Tunnel)]
+        protected void Element_KeyDown() => KeyDownAssertionHandler?.Invoke();
+
         public Action? AttachedToLogicalTreeAssertionHandler { get; set; }
         public Action? ButtonClickAssertionHandler { get; set; }
         public Action? ChangedAssertionHandler { get; set; }
+        public Action? KeyDownAssertionHandler { get; set; }
     }
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+TestDataContext")]

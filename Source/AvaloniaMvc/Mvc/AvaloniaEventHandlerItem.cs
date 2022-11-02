@@ -15,6 +15,7 @@ public class AvaloniaEventHandlerItem : EventHandlerItem<StyledElement>
 {
     private readonly RoutedEvent? routedEvent;
     private readonly EventInfo? eventInfo;
+    private readonly RoutingStrategies? routes;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AvaloniaEventHandlerItem"/> class
@@ -28,6 +29,7 @@ public class AvaloniaEventHandlerItem : EventHandlerItem<StyledElement>
     /// <param name="routedEvent">The routed event that is raised.</param>
     /// <param name="eventInfo">The information of the event that is raised</param>
     /// <param name="handler">The handler of the event.</param>
+    /// <param name="routes">The routing strategies to listen to.</param>
     /// <param name="handledEventsToo">
     /// <c>true</c> to register the handler such that it is invoked even when the
     /// event is marked handled in its event data; <c>false</c> to register the
@@ -35,10 +37,11 @@ public class AvaloniaEventHandlerItem : EventHandlerItem<StyledElement>
     /// is already marked handled.
     /// </param>
     /// <param name="parameterResolver">The resolver to resolve parameters.</param>
-    public AvaloniaEventHandlerItem(string elementName, StyledElement? element, string eventName, RoutedEvent? routedEvent, EventInfo? eventInfo, Delegate? handler, bool handledEventsToo, IEnumerable<IEventHandlerParameterResolver> parameterResolver) : base(elementName, element, eventName, handler, handledEventsToo, parameterResolver)
+    public AvaloniaEventHandlerItem(string elementName, StyledElement? element, string eventName, RoutedEvent? routedEvent, EventInfo? eventInfo, Delegate? handler, RoutingStrategies? routes, bool handledEventsToo, IEnumerable<IEventHandlerParameterResolver> parameterResolver) : base(elementName, element, eventName, handler, handledEventsToo, parameterResolver)
     {
         this.routedEvent = routedEvent;
         this.eventInfo = eventInfo;
+        this.routes = routes;
     }
 
     /// <summary>
@@ -56,7 +59,14 @@ public class AvaloniaEventHandlerItem : EventHandlerItem<StyledElement>
     {
         if (routedEvent is not null && element is Interactive interactive)
         {
-            interactive.AddHandler(routedEvent, handler, handledEventsToo: handledEventsToo);
+            if (routes is null)
+            {
+                interactive.AddHandler(routedEvent, handler, handledEventsToo: handledEventsToo);
+            }
+            else
+            {
+                interactive.AddHandler(routedEvent, handler, routes.Value, handledEventsToo);
+            }
         }
         else
         {

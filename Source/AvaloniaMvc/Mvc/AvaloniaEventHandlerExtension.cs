@@ -45,6 +45,7 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
             eventHandlerAttribute.ElementName, targetElement,
             eventHandlerAttribute.Event, routedEvent, eventInfo,
             handlerCreator(routedEvent?.EventArgsType is null ? eventInfo?.EventHandlerType : typeof(EventHandler<>).MakeGenericType(routedEvent.EventArgsType)),
+            eventHandlerAttribute is RoutedEventHandlerAttribute routedEventHandlerAttribute ? routedEventHandlerAttribute.Routes : null,
             eventHandlerAttribute.HandledEventsToo,
             CreateParameterResolver(element)
         ));
