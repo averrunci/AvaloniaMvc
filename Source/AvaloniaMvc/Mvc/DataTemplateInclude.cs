@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -79,16 +79,16 @@ public class DataTemplateInclude : IDataTemplate
     /// </summary>
     /// <param name="param">The parameter.</param>
     /// <returns>The created control.</returns>
-    protected virtual IControl Build(object param)
-        => LoadedDataTemplates.FirstOrDefault(dataTemplate => dataTemplate.Match(param))?.Build(param) ?? throw new InvalidOperationException();
+    protected virtual Control? Build(object? param)
+        => LoadedDataTemplates.FirstOrDefault(dataTemplate => dataTemplate.Match(param))?.Build(param);
 
     /// <summary>
     /// Checks to see if this data template matches the specified data.
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns><c>true</c> if the data template can build a control for the data; otherwise <c>false</c>.</returns>
-    protected virtual bool Match(object data) => LoadedDataTemplates.Any(dataTemplate => dataTemplate.Match(data));
+    protected virtual bool Match(object? data) => LoadedDataTemplates.Any(dataTemplate => dataTemplate.Match(data));
 
-    IControl ITemplate<object, IControl>.Build(object param) => Build(param);
-    bool IDataTemplate.Match(object data) => Match(data);
+    Control? ITemplate<object?, Control?>.Build(object? param) => Build(param);
+    bool IDataTemplate.Match(object? data) => Match(data);
 }

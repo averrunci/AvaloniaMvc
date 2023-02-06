@@ -1,10 +1,10 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
-using Avalonia.VisualTree;
 
 namespace Charites.Windows.Mvc;
 
@@ -18,7 +18,7 @@ internal class TestElement : ContentControl
 
     public void EnsureVisual()
     {
-        if (Content is IVisual visual) VisualChildren.Add(visual);
+        if (Content is Visual visual) VisualChildren.Add(visual);
         if (Content is not TestElement childElement) return;
 
         childElement.EnsureVisual();

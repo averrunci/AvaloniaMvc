@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -15,8 +15,8 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
     private const BindingFlags RoutedEventBindingFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy;
     private const char AttachedEventSeparator = '.';
 
-    private static readonly AvaloniaProperty<IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>> EventHandlerBasesProperty
-        = AvaloniaProperty.RegisterAttached<AvaloniaEventHandlerExtension, StyledElement, IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>>("EventHandlerBases");
+    private static readonly AttachedProperty<IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>?> EventHandlerBasesProperty
+        = AvaloniaProperty.RegisterAttached<AvaloniaEventHandlerExtension, StyledElement, IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>?>("EventHandlerBases");
 
     public AvaloniaEventHandlerExtension()
     {
@@ -29,7 +29,8 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
     {
         if (element is null) return new Dictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>();
 
-        if (element.GetValue(EventHandlerBasesProperty) is IDictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>> eventHandlerBases) return eventHandlerBases;
+        var eventHandlerBases = element.GetValue(EventHandlerBasesProperty);
+        if (eventHandlerBases is not null) return eventHandlerBases;
 
         eventHandlerBases = new Dictionary<object, EventHandlerBase<StyledElement, AvaloniaEventHandlerItem>>();
         element.SetValue(EventHandlerBasesProperty, eventHandlerBases);
@@ -62,10 +63,12 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
             .From(element)
             .With(new AvaloniaPropertyChangedEventArgs<object?>(element, StyledElement.DataContextProperty, null, element.DataContext, BindingPriority.LocalValue))
             .Raise(nameof(StyledElement.DataContextChanged));
-        eventHandlers.GetBy(element.Name)
-            .From(element)
-            .With(new LogicalTreeAttachmentEventArgs(element.FindLogicalRoot(), element, element.Parent))
-            .Raise(nameof(StyledElement.AttachedToLogicalTree));
+        var logicalRoot = element.FindLogicalRoot();
+        if (logicalRoot is not null)
+            eventHandlers.GetBy(element.Name)
+                .From(element)
+                .With(new LogicalTreeAttachmentEventArgs(logicalRoot, element, element.Parent))
+                .Raise(nameof(StyledElement.AttachedToLogicalTree));
     }
 
     private RoutedEvent? RetrieveRoutedEvent(StyledElement? element, string name)

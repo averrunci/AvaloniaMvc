@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -101,48 +101,46 @@ public class AvaloniaController
     /// <summary>
     /// Identifies the <see cref="KeyProperty"/> XAML attached property.
     /// </summary>
-    public static readonly AvaloniaProperty<string?> KeyProperty = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, string?>("Key");
+    public static readonly AttachedProperty<string?> KeyProperty = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, string?>("Key");
 
     /// <summary>
-    /// Sets the value of the <see cref="KeyProperty"/> XAML attached property on the specified <see cref="IAvaloniaObject"/>.
+    /// Sets the value of the <see cref="KeyProperty"/> XAML attached property on the specified <see cref="StyledElement"/>.
     /// </summary>
     /// <param name="element">The element on which to set the <see cref="KeyProperty"/> XAML attached property.</param>
     /// <param name="value">The property value to set.</param>
-    public static void SetKey(IAvaloniaObject element, string? value) => element.SetValue(KeyProperty, value);
+    public static void SetKey(StyledElement element, string? value) => element.SetValue(KeyProperty, value);
 
     /// <summary>
-    /// Gets the value of the <see cref="KeyProperty"/> XAML attached property from the specified <see cref="IAvaloniaObject"/>.
+    /// Gets the value of the <see cref="KeyProperty"/> XAML attached property from the specified <see cref="StyledElement"/>.
     /// </summary>
     /// <param name="element">The element from which to read the property value.</param>
     /// <returns>The value of the <see cref="KeyProperty"/> XAML attached property on the target dependency object.</returns>
-    public static string? GetKey(IAvaloniaObject element) => element.GetValue(KeyProperty);
+    public static string? GetKey(StyledElement element) => element.GetValue(KeyProperty);
 
-    private static void OnKeyChanged(AvaloniaPropertyChangedEventArgs e) => SetIsEnabled(e.Sender, true);
+    private static void OnKeyChanged(StyledElement element, AvaloniaPropertyChangedEventArgs e) => SetIsEnabled(element, true);
 
     /// <summary>
     /// Identifies the <see cref="IsEnabledProperty"/> XAML attached property.
     /// </summary>
-    public static readonly AvaloniaProperty<bool> IsEnabledProperty = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, bool>("IsEnabled");
+    public static readonly AttachedProperty<bool> IsEnabledProperty = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, bool>("IsEnabled");
 
     /// <summary>
-    /// Sets the value of the <see cref="IsEnabledProperty"/> XAML attached property on the specified <see cref="IAvaloniaObject"/>.
+    /// Sets the value of the <see cref="IsEnabledProperty"/> XAML attached property on the specified <see cref="AvaloniaObject"/>.
     /// </summary>
     /// <param name="element">The element on which to set the <see cref="IsEnabledProperty"/> XAML attached property.</param>
     /// <param name="value">The property value to set.</param>
-    public static void SetIsEnabled(IAvaloniaObject element, bool value) => element.SetValue(IsEnabledProperty, value);
+    public static void SetIsEnabled(StyledElement element, bool value) => element.SetValue(IsEnabledProperty, value);
 
     /// <summary>
-    /// Gets the value of the <see cref="IsEnabledProperty"/> XAML attached property from the specified <see cref="IAvaloniaObject"/>.
+    /// Gets the value of the <see cref="IsEnabledProperty"/> XAML attached property from the specified <see cref="AvaloniaObject"/>.
     /// </summary>
     /// <param name="element">The element from which to read the property value.</param>
     /// <returns>The value of the <see cref="IsEnabledProperty"/> XAML attached property on the target dependency object.</returns>
-    public static bool GetIsEnabled(IAvaloniaObject element) => element.GetValue(IsEnabledProperty);
+    public static bool GetIsEnabled(StyledElement element) => element.GetValue(IsEnabledProperty);
 
-    private static void OnIsEnabledChanged(AvaloniaPropertyChangedEventArgs e)
+    private static void OnIsEnabledChanged(StyledElement element, AvaloniaPropertyChangedEventArgs e)
     {
-        if (e.Sender is not StyledElement element) throw new InvalidOperationException("Avalonia object must be StyledElement.");
-
-        if ((bool)(e.NewValue ?? false))
+        if (e.GetNewValue<bool>())
         {
             if (element.DataContext is null)
             {
@@ -161,7 +159,7 @@ public class AvaloniaController
         }
     }
 
-    private static readonly AvaloniaProperty<AvaloniaControllerCollection?> ControllersProperty
+    private static readonly AttachedProperty<AvaloniaControllerCollection?> ControllersProperty
         = AvaloniaProperty.RegisterAttached<AvaloniaController, StyledElement, AvaloniaControllerCollection?>("Controllers");
 
     private static void OnElementDataContextChanged(object? sender, EventArgs e)
@@ -183,7 +181,7 @@ public class AvaloniaController
 
     private static void DetachControllers(StyledElement element)
     {
-        var controllers = element.GetValue<AvaloniaControllerCollection?>(ControllersProperty);
+        var controllers = element.GetValue(ControllersProperty);
         controllers?.Detach();
         element.SetValue(ControllersProperty, null);
     }
@@ -192,13 +190,13 @@ public class AvaloniaController
     {
         Assembly.GetExecutingAssembly().GetTypes()
             .Where(type => typeof(IAvaloniaControllerExtension).IsAssignableFrom(type))
-            .Where(type => type.IsClass && !type.IsAbstract)
+            .Where(type => type is { IsClass: true, IsAbstract: false })
             .Select(type => Activator.CreateInstance(type) as IAvaloniaControllerExtension)
             .Where(extension => extension is not null)
             .ForEach(extension => AddExtension(extension!));
 
-        KeyProperty.Changed.Subscribe(OnKeyChanged);
-        IsEnabledProperty.Changed.Subscribe(OnIsEnabledChanged);
+        KeyProperty.Changed.AddClassHandler<StyledElement>(OnKeyChanged);
+        IsEnabledProperty.Changed.AddClassHandler<StyledElement>(OnIsEnabledChanged);
     }
 
     private static void EnsureControllerTypeFinder()
@@ -218,7 +216,7 @@ public class AvaloniaController
     /// <returns>The collection of the controller associated with the specified <see cref="StyledElement"/>.</returns>
     public static AvaloniaControllerCollection GetControllers(StyledElement element)
     {
-        var controllers = element.GetValue<AvaloniaControllerCollection?>(ControllersProperty);
+        var controllers = element.GetValue(ControllersProperty);
         if (controllers is not null) return controllers;
         
         controllers = new AvaloniaControllerCollection(DataContextFinder, DataContextInjector, ElementInjector, Extensions);

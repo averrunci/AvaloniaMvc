@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -54,7 +54,7 @@ public sealed class AvaloniaControllerCollection : ControllerCollection<StyledEl
         associatedElement.DetachedFromLogicalTree += OnElementDetached;
         associatedElement.DataContextChanged += OnElementDataContextChanged;
 
-        if (associatedElement.IsInitialized) OnElementAttached(associatedElement, new LogicalTreeAttachmentEventArgs(associatedElement.FindLogicalRoot(), associatedElement, associatedElement.Parent));
+        if (associatedElement.IsInitialized) OnElementAttached(associatedElement);
     }
 
     /// <summary>
@@ -68,12 +68,17 @@ public sealed class AvaloniaControllerCollection : ControllerCollection<StyledEl
         associatedElement.DataContextChanged -= OnElementDataContextChanged;
     }
 
+    private void OnElementAttached(StyledElement element)
+    {
+        SetElement(element);
+        AttachExtensions();
+    }
+
     private void OnElementAttached(object? sender, LogicalTreeAttachmentEventArgs e)
     {
         if (sender is not StyledElement element) return;
 
-        SetElement(element);
-        AttachExtensions();
+        OnElementAttached(element);
     }
 
     private void OnElementDetached(object? sender, LogicalTreeAttachmentEventArgs e)
