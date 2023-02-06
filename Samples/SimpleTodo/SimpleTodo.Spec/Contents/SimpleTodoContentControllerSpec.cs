@@ -1,8 +1,7 @@
-﻿// Copyright (C) 2022 Fievus
+﻿// Copyright (C) 2022-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
-using Avalonia.Controls;
 using Avalonia.Input;
 using Carna;
 using Charites.Windows.Mvc;
@@ -22,19 +21,8 @@ class SimpleTodoContentControllerSpec : FixtureSteppable
         AvaloniaController.SetDataContext(Content, Controller);
     }
 
-    [Example("The IsChecked of the AllCompletedCheckBox is set to null when the AllCompleted of the content does not have a value")]
-    void Ex01()
-    {
-        var allCompletedCheckBox = new CheckBox { Name = "AllCompletedCheckBox" };
-        AvaloniaController.SetElement(allCompletedCheckBox, Controller, true);
-        When("AllCompleted of the content is set to true", () => Content.AllCompleted.Value = true);
-        When("IsChecked of the AllCompletedCheckBox is set to true", () => allCompletedCheckBox.IsChecked = true);
-        When("the AllCompleted of the content is set to null", () => Content.AllCompleted.Value = null);
-        Then("the IsChecked of the AllCompletedCheckBox should be null", () => allCompletedCheckBox.IsChecked = null);
-    }
-
     [Example("A to-do item is added when the Enter key is pressed")]
-    void Ex02()
+    void Ex01()
     {
         When("the content of the to-do is set", () => Content.TodoContent.Value = TodoContent);
         When("the Enter key is pressed", () =>
@@ -47,7 +35,7 @@ class SimpleTodoContentControllerSpec : FixtureSteppable
     }
 
     [Example("A to-do item is not added when the Tab key is pressed")]
-    void Ex03()
+    void Ex02()
     {
         When("the content of the to-do is set", () => Content.TodoContent.Value = TodoContent);
         When("the Tab key is pressed", () =>

@@ -50,7 +50,7 @@ namespace Charites.Windows.Samples.SimpleTodo.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,7 +60,7 @@ namespace Charites.Windows.Samples.SimpleTodo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright (C) 2022 Fievus.
+        ///   Looks up a localized string similar to Copyright (C) 2022-2023 Fievus.
         /// </summary>
         public static string Copyright {
             get {

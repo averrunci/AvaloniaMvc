@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021-2022 Fievus
+﻿// Copyright (C) 2021-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -9,7 +9,7 @@ using Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login;
 namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation;
 
 [View(Key = nameof(SimpleLoginDemoContent))]
-public class SimpleLoginDemoContentController : IDisposable
+public class SimpleLoginDemoContentController : ControllerBase<SimpleLoginDemoContent>, IDisposable
 {
     private readonly IContentNavigator navigator;
 
@@ -17,37 +17,36 @@ public class SimpleLoginDemoContentController : IDisposable
     {
         this.navigator = navigator;
 
-        SubscribeContentNavigatorEvent();
+        SubscribeToContentNavigatorEvent();
     }
-
-    private void SetDataContext(SimpleLoginDemoContent? content) => this.content = content;
-    private SimpleLoginDemoContent? content;
 
     public void Dispose()
     {
-        UnsubscribeContentNavigatorEvent();
+        UnsubscribeFromContentNavigatorEvent();
     }
 
-    private void SubscribeContentNavigatorEvent()
+    private void SubscribeToContentNavigatorEvent()
     {
         navigator.Navigated += OnContentNavigated;
     }
 
-    private void UnsubscribeContentNavigatorEvent()
+    private void UnsubscribeFromContentNavigatorEvent()
     {
         navigator.Navigated -= OnContentNavigated;
     }
 
-    private void OnContentNavigated(object? sender, ContentNavigatedEventArgs e)
+    private void Navigate(SimpleLoginDemoContent content, object navigatedContent)
     {
-        if (content is null) return;
-        
-        content.Content.Value = e.Content;
+        content.Content.Value = navigatedContent;
     }
 
-    [EventHandler(Event = nameof(StyledElement.AttachedToLogicalTree))]
-    private void OnAttachedToLogicalTree()
+    private void NavigateToLoginContent()
     {
         navigator.NavigateTo(new LoginContent());
     }
+
+    private void OnContentNavigated(object? sender, ContentNavigatedEventArgs e) => DataContext.IfPresent(e.Content, Navigate);
+
+    [EventHandler(Event = nameof(StyledElement.AttachedToLogicalTree))]
+    private void OnAttachedToLogicalTree() => NavigateToLoginContent();
 }
