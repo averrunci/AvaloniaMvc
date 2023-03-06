@@ -229,7 +229,7 @@ public class AvaloniaController
     /// </summary>
     /// <param name="dataContext">The data context that is set to the controller.</param>
     /// <param name="controller">The controller to which the data context is set.</param>
-    public static void SetDataContext(object dataContext, object controller) => DataContextInjector.Inject(dataContext, controller);
+    public static void SetDataContext(object? dataContext, object controller) => DataContextInjector.Inject(dataContext, controller);
 
     /// <summary>
     /// Sets the specified element to the specified controller.
@@ -240,7 +240,7 @@ public class AvaloniaController
     /// If <c>true</c>, an element is not set to the controller when it is not found in the specified element;
     /// otherwise, <c>null</c> is set.
     /// </param>
-    public static void SetElement(StyledElement rootElement, object controller, bool foundElementOnly = false)
+    public static void SetElement(StyledElement? rootElement, object controller, bool foundElementOnly = false)
         => ElementInjector.Inject(rootElement, controller, foundElementOnly);
 
     /// <summary>
