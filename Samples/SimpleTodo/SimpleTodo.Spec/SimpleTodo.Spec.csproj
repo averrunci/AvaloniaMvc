@@ -20,10 +20,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Carna" Version="2.1.0">
+        <PackageReference Include="Carna" Version="2.1.1">
             <IncludeAssets>compile</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="NSubstitute" Version="4.4.0" />
+        <PackageReference Include="NSubstitute" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
