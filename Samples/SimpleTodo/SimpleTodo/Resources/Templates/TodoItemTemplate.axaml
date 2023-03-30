@@ -1,5 +1,5 @@
 ﻿<!--
-Copyright (C) 2022 Fievus
+Copyright (C) 2022-2023 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
@@ -7,6 +7,7 @@ of the MIT license.  See the LICENSE file for details.
 <DataTemplate xmlns="https://github.com/avaloniaui"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:a="clr-namespace:Charites.Windows.Mvc;assembly=AvaloniaMvc"
+              xmlns:b="clr-namespace:Charites.Windows.Mvc.Bindings;assembly=Charites.Bindings"
               xmlns:m="clr-namespace:Charites.Windows.Samples.SimpleTodo.Contents"
               xmlns:c="clr-namespace:Charites.Windows.Samples.SimpleTodo.Converters"
               DataType="{x:Type m:TodoItem}">
@@ -36,20 +37,21 @@ of the MIT license.  See the LICENSE file for details.
             </Button>
         
             <Panel Name="TodoItemContainer" Classes="todoItemContainer">
-                <TextBlock Name="TodoContentTextBlock"
-                           ToolTip.Tip="{Binding Content.Value}"
-                           Classes="todoContent"
-                           Classes.completed="{Binding IsCompleted.Value}"
-                           IsVisible="{Binding !IsEditing.Value}"
-                           Text="{Binding Content.Value}"/>
+                <ContentControl Classes="todoContent"
+                                Content="{Binding Content.Content.Value}"
+                                Classes.completed="{Binding IsCompleted.Value}">
+                    <ContentControl.DataTemplates>
+                        <DataTemplate DataType="b:IEditableDisplayContent">
+                            <Panel a:AvaloniaController.Key="TodoItemContent" Background="Transparent">
+                                <TextBlock Text="{Binding Value.Value}"/>
+                            </Panel>
+                        </DataTemplate>
+                    </ContentControl.DataTemplates>
+                </ContentControl>
                 <Line Name="StrikeThroughLine"
                       Classes="strikeThrough"
                       Classes.completed="{Binding IsCompleted.Value}"
-                      IsVisible="{Binding !IsEditing.Value}"/>
-                <TextBox Name="TodoContentTextBox"
-                         Classes="todoContent"
-                         IsVisible="{Binding IsEditing.Value}"
-                         Text="{Binding EditContent.Value}"/>
+                      IsVisible="{Binding !Content.IsEditing.Value}"/>
             </Panel>
         </DockPanel>
     </Border>

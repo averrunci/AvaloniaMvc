@@ -18,6 +18,7 @@ public class SimpleTodoApplication : Application
         base.Initialize();
 
         Styles.Add(new FluentTheme());
+        DataTemplates.Add(new AvaloniaMvcDataTemplates());
 
         var baseUri = new Uri("avares://SimpleTodo");
         Styles.Add(new StyleInclude(baseUri) { Source = new Uri("Resources/Styles.axaml", UriKind.Relative) });
