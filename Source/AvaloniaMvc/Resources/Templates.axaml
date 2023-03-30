@@ -1,0 +1,41 @@
+﻿<!--
+Copyright (C) 2023 Fievus
+
+This software may be modified and distributed under the terms
+of the MIT license.  See the LICENSE file for details.
+-->
+<DataTemplates xmlns="https://github.com/avaloniaui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:a="clr-namespace:Charites.Windows.Mvc;assembly=AvaloniaMvc"
+               xmlns:m="clr-namespace:Charites.Windows.Mvc.Bindings;assembly=Charites.Bindings">
+    <DataTemplate DataType="m:IEditableDisplayContent">
+        <Panel a:AvaloniaController.IsEnabled="True" Background="Transparent">
+            <Panel.DataTemplates>
+                <DataTemplate DataType="x:String">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
+                </DataTemplate>
+            </Panel.DataTemplates>
+            
+            <ContentControl Content="{Binding Value.Value}"/>
+        </Panel>
+    </DataTemplate>
+    
+    <DataTemplate DataType="m:IEditableEditText">
+        <Panel a:AvaloniaController.IsEnabled="True">
+            <TextBox Name="TextBox"
+                     Classes="clearButton"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="{Binding IsMultiLine.Value}"
+                     Text="{Binding Value.Value}"/>
+        </Panel>
+    </DataTemplate>
+    
+    <DataTemplate DataType="m:IEditableEditSelection">
+        <Panel a:AvaloniaController.IsEnabled="True">
+            <ComboBox Name="ComboBox"
+                      IsDropDownOpen="{Binding IsSelecting.Value, Mode=TwoWay}"
+                      ItemsSource="{Binding SelectionItems}"
+                      SelectedItem="{Binding Value.Value}"/>
+        </Panel>
+    </DataTemplate>
+</DataTemplates>
