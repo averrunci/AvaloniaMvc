@@ -59,17 +59,27 @@ internal sealed class AvaloniaEventHandlerExtension : EventHandlerExtension<Styl
     {
         base.OnEventHandlerAdded(eventHandlers, element);
 
-        eventHandlers.GetBy(element.Name)
+        RaiseDataContextChanged(eventHandlers, element, element.Name);
+        if (!string.IsNullOrEmpty(element.Name)) RaiseDataContextChanged(eventHandlers, element, null);
+        
+        var logicalRoot = element.FindLogicalRoot();
+        if (logicalRoot is null) return;
+        
+        RaiseAttachedToLogicalTree(eventHandlers, element, element.Name, logicalRoot);
+        if (!string.IsNullOrEmpty(element.Name)) RaiseAttachedToLogicalTree(eventHandlers, element, null, logicalRoot);
+    }
+
+    private void RaiseDataContextChanged(EventHandlerBase<StyledElement, AvaloniaEventHandlerItem> eventHandlers, StyledElement element, string? elementName)
+        => eventHandlers.GetBy(elementName)
             .From(element)
             .With(new AvaloniaPropertyChangedEventArgs<object?>(element, StyledElement.DataContextProperty, null, element.DataContext, BindingPriority.LocalValue))
             .Raise(nameof(StyledElement.DataContextChanged));
-        var logicalRoot = element.FindLogicalRoot();
-        if (logicalRoot is not null)
-            eventHandlers.GetBy(element.Name)
-                .From(element)
-                .With(new LogicalTreeAttachmentEventArgs(logicalRoot, element, element.Parent))
-                .Raise(nameof(StyledElement.AttachedToLogicalTree));
-    }
+
+    private void RaiseAttachedToLogicalTree(EventHandlerBase<StyledElement, AvaloniaEventHandlerItem> eventHandlers, StyledElement element, string? elementName, ILogicalRoot logicalRoot)
+        => eventHandlers.GetBy(elementName)
+            .From(element)
+            .With(new LogicalTreeAttachmentEventArgs(logicalRoot, element, element.Parent))
+            .Raise(nameof(StyledElement.AttachedToLogicalTree));
 
     private RoutedEvent? RetrieveRoutedEvent(StyledElement? element, string name)
     {
