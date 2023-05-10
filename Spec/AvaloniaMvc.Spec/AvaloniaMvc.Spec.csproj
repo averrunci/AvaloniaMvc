@@ -26,6 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
+    <PackageReference Include="NSubstitute" Version="5.0.0"/>
   </ItemGroup>
 
   <ItemGroup>

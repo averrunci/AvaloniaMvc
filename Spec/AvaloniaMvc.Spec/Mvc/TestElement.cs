@@ -4,7 +4,8 @@
 // of the MIT license.  See the LICENSE file for details.
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.LogicalTree;
+using Avalonia.Platform;
+using NSubstitute;
 
 namespace Charites.Windows.Mvc;
 
@@ -25,6 +26,9 @@ internal class TestElement : ContentControl
     }
 }
 
-internal class TestLogicalRoot : Control, ILogicalRoot
+internal class TestLogicalRoot : TopLevel
 {
+    public TestLogicalRoot() : base(Substitute.For<ITopLevelImpl>())
+    {
+    }
 }
