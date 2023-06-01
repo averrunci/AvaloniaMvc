@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-rc1.1" />
     <PackageReference Include="Charites" Version="2.2.0" />
     <PackageReference Include="Charites.Bindings" Version="2.2.0" />
   </ItemGroup>

@@ -4,7 +4,7 @@
 // of the MIT license.  See the LICENSE file for details.
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Platform;
+using Avalonia.Controls.Embedding.Offscreen;
 using NSubstitute;
 
 namespace Charites.Windows.Mvc;
@@ -28,7 +28,7 @@ internal class TestElement : ContentControl
 
 internal class TestLogicalRoot : TopLevel
 {
-    public TestLogicalRoot() : base(Substitute.For<ITopLevelImpl>())
+    public TestLogicalRoot() : base(Substitute.For<OffscreenTopLevelImplBase>())
     {
     }
 }
