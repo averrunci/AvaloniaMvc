@@ -24,6 +24,7 @@ internal class SimpleLoginDemoBootstrapper : ISimpleLoginDemoBootstrapper
     {
         Environment.ExitCode = AppBuilder.Configure<SimpleLoginDemoApplication>()
             .UsePlatformDetect()
+            .WithInterFont()
             .LogToTrace()
             .AfterSetup(builder => Configure(builder.Instance?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
             .StartWithClassicDesktopLifetime(Environment.GetCommandLineArgs());

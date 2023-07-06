@@ -24,7 +24,7 @@ of the MIT license.  See the LICENSE file for details.
                     <CheckBox DockPanel.Dock="Left"
                               IsChecked="{Binding AllCompleted.Value}"/>
                     <TextBox Name="TodoContentTextBox"
-                             Classes="todoContent"
+                             Classes="todoContent clearButton"
                              Text="{Binding TodoContent.Value}"/>
                 </DockPanel>
             </Border>

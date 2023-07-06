@@ -24,6 +24,7 @@ internal class SimpleTodoBootstrapper : ISimpleTodoBootstrapper
     {
         Environment.ExitCode = AppBuilder.Configure<SimpleTodoApplication>()
             .UsePlatformDetect()
+            .WithInterFont()
             .LogToTrace()
             .AfterSetup(builder => Configure(builder.Instance?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
             .StartWithClassicDesktopLifetime(Environment.GetCommandLineArgs());
