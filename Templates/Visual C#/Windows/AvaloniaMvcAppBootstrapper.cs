@@ -20,8 +20,9 @@ internal class $safeitemrootname$ : I$safeprojectname$Bootstrapper
     {
         Environment.ExitCode = AppBuilder.Configure<$safeprojectname$Application > ()
             .UsePlatformDetect()
+            .WithInterFont()
             .LogToTrace()
-            .AfterSetup(builder => Configure(builder.Instance.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
+            .AfterSetup(builder => Configure(builder.Instance?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
             .StartWithClassicDesktopLifetime(Environment.GetCommandLineArgs());
     }
 

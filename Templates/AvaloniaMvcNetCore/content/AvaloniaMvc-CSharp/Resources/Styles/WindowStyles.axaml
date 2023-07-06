@@ -3,7 +3,6 @@
         <Setter Property="Width" Value="1600"/>
         <Setter Property="Height" Value="1200"/>
         <Setter Property="Title" Value="AvaloniaMvcApp"/>
-        <Setter Property="WindowStartupLocation" Value="CenterScreen"/>
         <Setter Property="Content" Value="{Binding}"/>
     </Style>
 </Styles>

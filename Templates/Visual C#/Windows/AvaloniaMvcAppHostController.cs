@@ -3,8 +3,6 @@
 namespace $safeprojectname$;
 
 [View(Key = nameof($safeprojectname$Host))]
-public class $safeitemrootname$
+public class $safeitemrootname$ : ControllerBase<$safeprojectname$Host>
 {
-    private void SetDataContext($safeprojectname$Host? host) => this.host = host;
-    private $safeprojectname$Host? host;
 }

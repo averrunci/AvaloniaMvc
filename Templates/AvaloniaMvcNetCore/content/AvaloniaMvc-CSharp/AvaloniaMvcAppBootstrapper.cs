@@ -20,8 +20,9 @@ internal class AvaloniaMvcAppBootstrapper : IAvaloniaMvcAppBootstrapper
     {
         Environment.ExitCode = AppBuilder.Configure<AvaloniaMvcAppApplication> ()
             .UsePlatformDetect()
+            .WithInterFont()
             .LogToTrace()
-            .AfterSetup(builder => Configure(builder.Instance.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
+            .AfterSetup(builder => Configure(builder.Instance?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime))
             .StartWithClassicDesktopLifetime(Environment.GetCommandLineArgs());
     }
 

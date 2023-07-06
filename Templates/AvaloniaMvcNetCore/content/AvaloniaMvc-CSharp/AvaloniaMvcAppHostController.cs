@@ -3,8 +3,6 @@
 namespace AvaloniaMvcApp;
 
 [View(Key = nameof(AvaloniaMvcAppHost))]
-public class AvaloniaMvcAppHostController
+public class AvaloniaMvcAppHostController : ControllerBase<AvaloniaMvcAppHost>
 {
-    private void SetDataContext(AvaloniaMvcAppHost? host) => this.host = host;
-    private AvaloniaMvcAppHost? host;
 }

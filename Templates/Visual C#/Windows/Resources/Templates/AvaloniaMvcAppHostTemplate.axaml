@@ -3,7 +3,7 @@
               xmlns:a="clr-namespace:Charites.Windows.Mvc;assembly=AvaloniaMvc"
               xmlns:m="clr-namespace:$safeprojectname$"
               DataType="{x:Type m:$safeprojectname$Host}">
-    <Grid a:AvaloniaController.IsEnabled="True">
+    <Panel a:AvaloniaController.IsEnabled="True">
 
-    </Grid>
+    </Panel>
 </DataTemplate>

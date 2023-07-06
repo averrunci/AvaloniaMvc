@@ -11,30 +11,28 @@ public class $safeitemrootname$ : Application
 {
     public override void Initialize()
     {
-        Styles.Add(new FluentTheme(new Uri("avares://$safeprojectname$/Resources/Styles")) { Mode = FluentThemeMode.Dark });
+        base.Initialize();
+
+        Styles.Add(new FluentTheme());
 
         var baseUri = new Uri("avares://$safeprojectname$");
-        Styles.Add(new StyleInclude(baseUri) { Source = new Uri("Resources/Styles.axaml", UriKind.Relative) });
-        DataTemplates.Add(new DataTemplateInclude(baseUri) { Source = new Uri("Resources/Templates.axaml", UriKind.Relative) });
-
-        base.Initialize();
+        Styles.Add(new StyleInclude(baseUri) { Source = new Uri("/Resources/Styles.axaml", UriKind.Relative) });
+        DataTemplates.Add(new DataTemplateInclude(baseUri) { Source = new Uri("/Resources/Templates.axaml", UriKind.Relative) });
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            desktop.MainWindow = new Window
-            {
-                DataContext = new $safeprojectname$Host()
-            };
-            desktop.MainWindow.Classes.Add("window");
-
-#if DEBUG
-            desktop.MainWindow.AttachDevTools();
-#endif
-        }
-
         base.OnFrameworkInitializationCompleted();
+
+        if (ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop) return;
+
+        desktop.MainWindow = new Window
+        {
+            DataContext = new $safeprojectname$Host()
+        };
+        desktop.MainWindow.Classes.Add("window");
+#if DEBUG
+        desktop.MainWindow.AttachDevTools();
+#endif
     }
 }
