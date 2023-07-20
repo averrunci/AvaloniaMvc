@@ -1,7 +1,8 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2023 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
+using System.Reflection;
 using Avalonia;
 
 namespace Charites.Windows.Mvc;
@@ -13,5 +14,9 @@ internal sealed class AvaloniaControllerTypeFinder : ControllerTypeFinder<Styled
     }
 
     protected override IEnumerable<Type> FindControllerTypeCandidates(StyledElement view)
-        => AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes());
+        => controllerTypeCandidates ??= AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(t => t.GetTypeInfo().GetCustomAttributes<ViewAttribute>(true).Any())
+            .ToList();
+    private IEnumerable<Type>? controllerTypeCandidates;
 }
