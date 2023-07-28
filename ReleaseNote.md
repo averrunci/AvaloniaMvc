@@ -1,5 +1,12 @@
 # Release note
 
+## v1.0.1
+
+### Changes
+
+- Improve a performance for the AvaloniaControllerTypeFinder.
+- Change Avalonia.Desktop version to 11.0.1.
+
 ## v1.0.0
 
 ### Add
@@ -28,7 +35,7 @@
 
 - Fixed an issue where events that are not a routed event can't be handled.
 - Fixed a value that indicates whether an element to which controllers are attached is loaded.
-- Fix an issue that the AttachedToLogicalTree and the DataContextChanged events can't be handled on a controller is attached when a name of a root element is specified and a name of its event handler is not specified.
+- Fixed an issue that the AttachedToLogicalTree and the DataContextChanged events can't be handled on a controller is attached when a name of a root element is specified and a name of its event handler is not specified.
 
 ## v0.10.1
 
