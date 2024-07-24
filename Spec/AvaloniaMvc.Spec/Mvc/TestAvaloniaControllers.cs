@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -48,48 +48,48 @@ internal class TestAvaloniaControllers
     }
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+TestDataContext")]
-    public class TestAvaloniaController : TestAvaloniaControllerBase { }
+    public class TestAvaloniaController : TestAvaloniaControllerBase;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
-    public class MultiTestAvaloniaControllerA : TestAvaloniaControllerBase { }
+    public class MultiTestAvaloniaControllerA : TestAvaloniaControllerBase;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
-    public class MultiTestAvaloniaControllerB : TestAvaloniaControllerBase { }
+    public class MultiTestAvaloniaControllerB : TestAvaloniaControllerBase;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+MultiTestDataContext")]
-    public class MultiTestAvaloniaControllerC : TestAvaloniaControllerBase { }
+    public class MultiTestAvaloniaControllerC : TestAvaloniaControllerBase;
 
     public class TestController {[DataContext] public object? DataContext { get; set; } }
 
     [View(Key = "AttachingTestDataContext")]
-    public class TestDataContextController : TestController { }
+    public class TestDataContextController : TestController;
 
     [View(Key = "BaseAttachingTestDataContext")]
-    public class BaseTestDataContextController : TestController { }
+    public class BaseTestDataContextController : TestController;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+AttachingTestDataContextFullName")]
-    public class TestDataContextFullNameController : TestController { }
+    public class TestDataContextFullNameController : TestController;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+BaseAttachingTestDataContextFullName")]
-    public class BaseTestDataContextFullNameController : TestController { }
+    public class BaseTestDataContextFullNameController : TestController;
 
     [View(Key = "GenericAttachingTestDataContext`1")]
-    public class GenericTestDataContextController : TestController { }
+    public class GenericTestDataContextController : TestController;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+GenericAttachingTestDataContextFullName`1[System.String]")]
-    public class GenericTestDataContextFullNameController : TestController { }
+    public class GenericTestDataContextFullNameController : TestController;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+GenericAttachingTestDataContextFullName`1")]
-    public class GenericTestDataContextFullNameWithoutParametersController : TestController { }
+    public class GenericTestDataContextFullNameWithoutParametersController : TestController;
 
     [View(Key = "IAttachingTestDataContext")]
-    public class InterfaceImplementedTestDataContextController : TestController { }
+    public class InterfaceImplementedTestDataContextController : TestController;
 
     [View(Key = "Charites.Windows.Mvc.TestDataContexts+IAttachingTestDataContextFullName")]
-    public class InterfaceImplementedTestDataContextFullNameController : TestController { }
+    public class InterfaceImplementedTestDataContextFullNameController : TestController;
 
     [View(Key = "TestElement")]
-    public class KeyTestDataContextController : TestController { }
+    public class KeyTestDataContextController : TestController;
 
     public class TestAvaloniaControllerAsync
     {
