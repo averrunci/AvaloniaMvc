@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -224,14 +224,14 @@ class AvaloniaControllerSpec_AttachingAndDetachingController : FixtureSteppable
         When("the AvaloniaController is enabled for the element", () =>
         {
             AvaloniaController.SetIsEnabled(Element, true);
-            Controllers = new TestAvaloniaControllers.TestAvaloniaControllerBase[]
-            {
+            Controllers =
+            [
                 Element.GetController<TestAvaloniaControllers.MultiTestAvaloniaControllerA>(),
                 Element.GetController<TestAvaloniaControllers.MultiTestAvaloniaControllerB>(),
                 Element.GetController<TestAvaloniaControllers.MultiTestAvaloniaControllerC>()
-            };
-            AttachedToLogicalTreeEventsHandled = new[] { false, false, false };
-            ChangedEventsHandled = new[] { false, false, false };
+            ];
+            AttachedToLogicalTreeEventsHandled = [false, false, false];
+            ChangedEventsHandled = [false, false, false];
         });
         Then("the data context of the controller should be set", () => Controllers.All(controller => controller.DataContext == Element.DataContext));
 
