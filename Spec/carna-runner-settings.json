@@ -1,6 +1,6 @@
 {
   "assemblies": [
-    "AvaloniaMvc.Spec\\bin\\Debug\\net6.0\\AvaloniaMvc.Spec.dll"
+    "AvaloniaMvc.Spec\\bin\\Debug\\net8.0\\AvaloniaMvc.Spec.dll"
   ],
   "reporters": [
     {
