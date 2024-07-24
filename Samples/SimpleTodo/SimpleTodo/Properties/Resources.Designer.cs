@@ -60,7 +60,7 @@ namespace Charites.Windows.Samples.SimpleTodo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright (C) 2022-2023 Fievus.
+        ///   Looks up a localized string similar to Copyright (C) 2022-2024 Fievus.
         /// </summary>
         public static string Copyright {
             get {

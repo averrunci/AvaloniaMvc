@@ -1,6 +1,6 @@
 {
   "assemblies": [
-    "SimpleLoginDemo.Presentation.Spec\\bin\\Debug\\net6.0\\SimpleLoginDemo.Presentation.Spec.dll"
+    "SimpleLoginDemo.Presentation.Spec\\bin\\Debug\\net8.0\\SimpleLoginDemo.Presentation.Spec.dll"
   ],
   "reporters": [
     {

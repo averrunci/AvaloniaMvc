@@ -1,6 +1,6 @@
 ﻿{
   "assemblies": [
-    "SimpleTodo.Spec\\bin\\Debug\\net6.0\\SimpleTodo.Spec.dll"
+    "SimpleTodo.Spec\\bin\\Debug\\net8.0\\SimpleTodo.Spec.dll"
   ],
   "reporters": [
     {

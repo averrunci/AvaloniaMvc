@@ -1,5 +1,5 @@
 ﻿<!--
-Copyright (C) 2020-2023 Fievus
+Copyright (C) 2020-2024 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
@@ -8,6 +8,8 @@ of the MIT license.  See the LICENSE file for details.
     <Style Selector="Window.window">
         <Setter Property="Width" Value="800"/>
         <Setter Property="Height" Value="600"/>
+        <Setter Property="MinWidth" Value="480"/>
+        <Setter Property="MinHeight" Value="360"/>
         <Setter Property="Title" Value="SimpleLoginDemo"/>
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="84"/>

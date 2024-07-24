@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2022-2023 Fievus
+﻿// Copyright (C) 2022-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -8,7 +8,7 @@ using Charites.Windows.Mvc;
 
 namespace Charites.Windows.Samples.SimpleTodo.Contents;
 
-[Specification("SimpleTodoContentController Spec")]
+[Specification($"{nameof(SimpleTodoContentController)} Spec")]
 class SimpleTodoContentControllerSpec : FixtureSteppable
 {
     SimpleTodoContentController Controller { get; } = new();

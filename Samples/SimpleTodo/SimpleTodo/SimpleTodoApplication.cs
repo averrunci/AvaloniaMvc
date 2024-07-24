@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2022-2023 Fievus
+﻿// Copyright (C) 2022-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -37,5 +37,8 @@ public class SimpleTodoApplication : Application
             WindowStartupLocation = WindowStartupLocation.CenterScreen
         };
         desktop.MainWindow.Classes.Add("window");
+#if DEBUG
+        desktop.MainWindow.AttachDevTools();
+#endif
     }
 }

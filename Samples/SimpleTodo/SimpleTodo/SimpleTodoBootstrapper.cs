@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2022-2023 Fievus
+﻿// Copyright (C) 2022-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -9,17 +9,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace Charites.Windows.Samples.SimpleTodo;
 
-internal class SimpleTodoBootstrapper : ISimpleTodoBootstrapper
+internal class SimpleTodoBootstrapper(IHostApplicationLifetime lifetime, IServiceProvider services) : ISimpleTodoBootstrapper
 {
-    private readonly IHostApplicationLifetime lifetime;
-    private readonly IServiceProvider services;
-
-    public SimpleTodoBootstrapper(IHostApplicationLifetime lifetime, IServiceProvider services)
-    {
-        this.lifetime = lifetime;
-        this.services = services;
-    }
-
     public void Bootstrap()
     {
         Environment.ExitCode = AppBuilder.Configure<SimpleTodoApplication>()

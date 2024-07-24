@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2020-2022 Fievus
+﻿// Copyright (C) 2020-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -6,10 +6,10 @@ using Carna;
 
 namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login;
 
-[Specification("LoginContent Spec")]
+[Specification($"{nameof(LoginContent)} Spec")]
 class LoginContentSpec : FixtureSteppable
 {
-    LoginContent LoginContent { get; } = new LoginContent();
+    LoginContent LoginContent { get; } = new();
 
     [Example("Validates the user id and the password")]
     [Sample("", "", false, Description = "When the user id is empty and the password is empty")]

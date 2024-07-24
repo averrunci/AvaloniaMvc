@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <RootNamespace>Charites.Windows.Samples.SimpleLoginDemo</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>averrunci</Authors>
-    <Copyright>Copyright (C) 2020-2023 Fievus</Copyright>
+    <Copyright>Copyright (C) 2020-2024 Fievus</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Condition="'$(Configuration)'=='Debug'" Include="Avalonia.Diagnostics" Version="11.0.1"/>
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.1"/>
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Condition="'$(Configuration)'=='Debug'" Include="Avalonia.Diagnostics" Version="11.1.0"/>
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0"/>
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

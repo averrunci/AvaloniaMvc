@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021-2022 Fievus
+﻿// Copyright (C) 2021-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -10,7 +10,7 @@ using NSubstitute;
 
 namespace Charites.Windows.Samples.SimpleLoginDemo.Presentation;
 
-[Specification("SimpleLoginDemoContentController Spec")]
+[Specification($"{nameof(SimpleLoginDemoContentController)} Spec")]
 class SimpleLoginDemoContentControllerSpec : FixtureSteppable
 {
     SimpleLoginDemoContentController Controller { get; }

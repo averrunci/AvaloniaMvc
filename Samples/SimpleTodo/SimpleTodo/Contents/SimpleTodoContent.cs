@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2022 Fievus
+﻿// Copyright (C) 2022-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -16,8 +16,8 @@ public class SimpleTodoContent
     public ObservableProperty<string> TodoContent { get; } = string.Empty.ToObservableProperty();
 
     public IEnumerable<TodoItem> TodoItems => todoItems;
-    private readonly ObservableCollection<TodoItem> todoItems = new();
-    private readonly List<TodoItem> underlyingTodoItems = new();
+    private readonly ObservableCollection<TodoItem> todoItems = [];
+    private readonly List<TodoItem> underlyingTodoItems = [];
 
     public ObservableProperty<string> ItemsLeftMessage { get; } = string.Empty.ToObservableProperty();
 

@@ -1,5 +1,5 @@
 ﻿<!--
-Copyright (C) 2020-2022 Fievus
+Copyright (C) 2020-2024 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
@@ -15,18 +15,18 @@ of the MIT license.  See the LICENSE file for details.
             <StyleInclude Source="/Resources/Styles/SimpleLoginDemoContentStyle.axaml"/>
         </DockPanel.Styles>
 
-        <Grid DockPanel.Dock="Top"
+        <Border DockPanel.Dock="Top"
               Classes="header">
             <TextBlock Classes="title" Text="{x:Static p:Resources.Title}"/>
-        </Grid>
+        </Border>
 
-        <Grid DockPanel.Dock="Bottom"
+        <Border DockPanel.Dock="Bottom"
               Classes="footer">
             <TextBlock Classes="copyright" Text="{x:Static p:Resources.Copyright}"/>
-        </Grid>
+        </Border>
 
         <Border Classes="body">
-            <ContentControl Content="{Binding Content.Value}"/>
+            <TransitioningContentControl Content="{Binding Content.Value}"/>
         </Border>
     </DockPanel>
 </DataTemplate>

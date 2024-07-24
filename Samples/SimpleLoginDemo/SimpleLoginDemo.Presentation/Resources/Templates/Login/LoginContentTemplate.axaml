@@ -1,5 +1,5 @@
 ﻿<!--
-Copyright (C) 2020-2022 Fievus
+Copyright (C) 2020-2024 Fievus
 
 This software may be modified and distributed under the terms
 of the MIT license.  See the LICENSE file for details.
@@ -10,15 +10,10 @@ of the MIT license.  See the LICENSE file for details.
               xmlns:m="clr-namespace:Charites.Windows.Samples.SimpleLoginDemo.Presentation.Contents.Login"
               xmlns:p="clr-namespace:Charites.Windows.Samples.SimpleLoginDemo.Presentation.Properties"
               DataType="{x:Type m:LoginContent}">
-    <Grid a:AvaloniaController.IsEnabled="True">
+    <Grid a:AvaloniaController.IsEnabled="True" RowDefinitions="Auto,*">
         <Grid.Styles>
             <StyleInclude Source="/Resources/Styles/Login/LoginContentStyle.axaml"/>
         </Grid.Styles>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
                    Classes="message"
@@ -29,12 +24,12 @@ of the MIT license.  See the LICENSE file for details.
             <StackPanel>
                 <StackPanel Classes="input">
                     <TextBlock Text="{x:Static p:Resources.UserIdLabel}"/>
-                    <TextBox Text="{Binding UserId.Value}"/>
+                    <TextBox Classes="clearButton" Text="{Binding UserId.Value}"/>
                 </StackPanel>
 
                 <StackPanel Classes="input">
                     <TextBlock Text="{x:Static p:Resources.PasswordLabel}"/>
-                    <TextBox PasswordChar="*" Text="{Binding Password.Value}"/>
+                    <TextBox Classes="clearButton" PasswordChar="*" Text="{Binding Password.Value}"/>
                 </StackPanel>
 
                 <Button Name="LoginButton"
