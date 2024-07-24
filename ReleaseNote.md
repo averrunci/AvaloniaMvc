@@ -1,5 +1,14 @@
 # Release note
 
+## v1.1.0
+
+### Changes
+
+- Change the target framework version to .NET 8.0.
+- Change Avalonia.Desktop version to 11.1.0.
+- Change Charites version to 3.0.0.
+- Change Charites.Bindings version to 3.0.0.
+
 ## v1.0.1
 
 ### Changes

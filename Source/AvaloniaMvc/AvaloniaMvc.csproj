@@ -6,15 +6,15 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Charites.Windows</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>averrunci</Authors>
     <Description>The class libarary for Avalonia with Model View Controller.</Description>
-    <Copyright>Copyright (C) 2020-2023 Fievus</Copyright>
+    <Copyright>Copyright (C) 2020-2024 Fievus</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/averrunci/AvaloniaMvc</PackageProjectUrl>
     <PackageTags>avalonia mvc charites</PackageTags>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
