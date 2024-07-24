@@ -5,17 +5,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace $safeprojectname$;
 
-internal class $safeitemrootname$ : I$safeprojectname$Bootstrapper
+internal class $safeitemrootname$(IHostApplicationLifetime lifetime, IServiceProvider services) : I$safeprojectname$Bootstrapper
 {
-    private readonly IHostApplicationLifetime lifetime;
-    private readonly IServiceProvider services;
-
-    public $safeitemrootname$(IHostApplicationLifetime lifetime, IServiceProvider services)
-    {
-        this.lifetime = lifetime;
-        this.services = services;
-    }
-
     public void Bootstrap()
     {
         Environment.ExitCode = AppBuilder.Configure<$safeprojectname$Application > ()

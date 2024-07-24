@@ -5,17 +5,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace AvaloniaMvcApp;
 
-internal class AvaloniaMvcAppBootstrapper : IAvaloniaMvcAppBootstrapper
+internal class AvaloniaMvcAppBootstrapper(IHostApplicationLifetime lifetime, IServiceProvider services) : IAvaloniaMvcAppBootstrapper
 {
-    private readonly IHostApplicationLifetime lifetime;
-    private readonly IServiceProvider services;
-
-    public AvaloniaMvcAppBootstrapper(IHostApplicationLifetime lifetime, IServiceProvider services)
-    {
-        this.lifetime = lifetime;
-        this.services = services;
-    }
-
     public void Bootstrap()
     {
         Environment.ExitCode = AppBuilder.Configure<AvaloniaMvcAppApplication> ()

@@ -3,14 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaMvcApp;
 
-internal class AvaloniaMvcAppControllerFactory : IAvaloniaControllerFactory
+internal class AvaloniaMvcAppControllerFactory(IServiceProvider services) : IAvaloniaControllerFactory
 {
-    private readonly IServiceProvider services;
-
-    public AvaloniaMvcAppControllerFactory(IServiceProvider services)
-    {
-        this.services = services;
-    }
-
     public object Create(Type controllerType) => services.GetRequiredService(controllerType);
 }

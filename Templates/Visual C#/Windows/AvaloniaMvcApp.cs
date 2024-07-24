@@ -2,15 +2,8 @@
 
 namespace $safeprojectname$;
 
-internal class $safeitemrootname$ : IHostedService
+internal class $safeitemrootname$(I$safeprojectname$Bootstrapper bootstrapper) : IHostedService
 {
-    private readonly I$safeprojectname$Bootstrapper bootstrapper;
-
-    public $safeitemrootname$(I$safeprojectname$Bootstrapper bootstrapper)
-    {
-        this.bootstrapper = bootstrapper;
-    }
-
     public Task StartAsync(CancellationToken cancellationToken)
     {
         bootstrapper.Bootstrap();

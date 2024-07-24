@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>AvaloniaMvc.ProjectTemplates</id>
-    <version>0.10.1</version>
+    <version>1.1.0</version>
     <title>Avalonia MVC Application</title>
     <authors>averrunci</authors>
     <owners>averrunci</owners>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Avalonia MVC application Project Template.</description>
     <language>en-US</language>
-    <copyright>Copyright (C) 2021 Fievus</copyright>
+    <copyright>Copyright (C) 2021-2024 Fievus</copyright>
     <tags>avalonia mvc charites</tags>
     <packageTypes>
       <packageType name="Template"/>

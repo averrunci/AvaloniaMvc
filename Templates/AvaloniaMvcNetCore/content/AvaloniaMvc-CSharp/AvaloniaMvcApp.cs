@@ -2,15 +2,8 @@
 
 namespace AvaloniaMvcApp;
 
-internal class AvaloniaMvcApp : IHostedService
+internal class AvaloniaMvcApp(IAvaloniaMvcAppBootstrapper bootstrapper) : IHostedService
 {
-    private readonly IAvaloniaMvcAppBootstrapper bootstrapper;
-
-    public AvaloniaMvcApp(IAvaloniaMvcAppBootstrapper bootstrapper)
-    {
-        this.bootstrapper = bootstrapper;
-    }
-
     public Task StartAsync(CancellationToken cancellationToken)
     {
         bootstrapper.Bootstrap();
