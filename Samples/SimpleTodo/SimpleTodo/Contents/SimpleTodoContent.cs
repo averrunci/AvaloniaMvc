@@ -54,6 +54,7 @@ public class SimpleTodoContent
 
     private void OnTodoItemsChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
+        UpdateAllTodoItemsCompletionState();
         UpdateAllTodoItemsCompletionEnabled();
         UpdateItemsLeftMessage();
     }

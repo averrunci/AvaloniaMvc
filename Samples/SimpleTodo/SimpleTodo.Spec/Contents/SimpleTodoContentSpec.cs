@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2022^2024 Fievus
+﻿// Copyright (C) 2022-2024 Fievus
 //
 // This software may be modified and distributed under the terms
 // of the MIT license.  See the LICENSE file for details.
@@ -208,5 +208,10 @@ class SimpleTodoContentSpec : FixtureSteppable
 
         When("to add a to-do item", () => AddTodoContent("Todo Item 4"));
         Then("the AllCompleted should be null", () => SimpleTodoContent.AllCompleted.Value == null);
+        
+        When("to remove items that is completed", () =>
+            SimpleTodoContent.TodoItems.Where(item => item.State.Value is TodoItemState.Completed).ToList().ForEach(item => item.Remove())
+        );
+        Then("the AllCompleted should be false", () => SimpleTodoContent.AllCompleted.Value == false);
     }
 }
